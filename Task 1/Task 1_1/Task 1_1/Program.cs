@@ -7,12 +7,12 @@ namespace Task_1_1
         static void Main(string[] args)
         {
 
-            //Rectangle();              // 1.1.1
-            //Triangle();               // 1.1.2
-            //AnotherTriangle();       // 1.1.3
-            XmasTree();                            // 1.1.4
-                                                   // 1.1.5
-                                                   // 1.1.6
+            //Rectangle();                         // 1.1.1
+            //Triangle();                          // 1.1.2
+            //AnotherTriangle();                   // 1.1.3
+            //XmasTree();                          // 1.1.4
+            //SumOfNumbers();                      // 1.1.5
+            FontAdj();                                    // 1.1.6
                                                    // 1.1.7
                                                    // 1.1.8
                                                    // 1.1.9
@@ -95,7 +95,27 @@ namespace Task_1_1
             }
 
         }
-      
+
+        static void SumOfNumbers()
+        {
+            int sum = 0;
+            for (int i = 0; i<1000; i++)
+            {
+ 
+                if (i%3==0 | i%5==0)
+                {
+                    Console.WriteLine(sum=sum+i);
+                }
+            }
+            Console.ReadLine();
+        }
+
+        static void FontAdj()
+        {
+
+        }
+
+
 
     }
 }
