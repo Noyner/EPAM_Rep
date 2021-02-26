@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Task_1_1
 {
@@ -11,8 +12,8 @@ namespace Task_1_1
             //Triangle();                          // 1.1.2
             //AnotherTriangle();                   // 1.1.3
             //XmasTree();                          // 1.1.4
-            //SumOfNumbers();                      // 1.1.5
-            FontAdj();                                    // 1.1.6
+            // SumOfNumbers();                      // 1.1.5
+            FontAdj();                             // 1.1.6
                                                    // 1.1.7
                                                    // 1.1.8
                                                    // 1.1.9
@@ -24,9 +25,9 @@ namespace Task_1_1
         {
             Console.Write("Вычислим площадь прямоугольника\n\n");
             Console.Write("Введите значение a: ");
-            int a = Convert.ToInt32(Console.ReadLine());
+            int a = Int32.Parse(Console.ReadLine());
             Console.Write("Введите значение b: ");
-            int b = Convert.ToInt32(Console.ReadLine());
+            int b = Int32.Parse(Console.ReadLine());
             int c = a * b;
             if (a <= 0 || b <= 0)
             {
@@ -43,7 +44,7 @@ namespace Task_1_1
         static void Triangle()
         {
             Console.Write("Введите высоту труегольника: ");
-            int height = Convert.ToInt32(Console.ReadLine());
+            int height = Int32.Parse(Console.ReadLine());
 
             for (int i = 0; i < height; i++)
             {
@@ -60,7 +61,7 @@ namespace Task_1_1
         static void AnotherTriangle()
         {
             Console.Write("Введите высоту ёлки: ");
-            int height = Convert.ToInt32(Console.ReadLine());
+            int height = Int32.Parse(Console.ReadLine());
             for (int i = 0; i < height; i++)
             {
                 for (int space = 0; space < height - i - 1; space++)
@@ -83,7 +84,7 @@ namespace Task_1_1
         static void XmasTree()
         {
             Console.Write("Введите высоту многоярусной ёлки: ");
-            int height = Convert.ToInt32(Console.ReadLine());
+            int height = Int32.Parse(Console.ReadLine());
             for (int i=0; i<=height;i++)
             {
                 for (int j=0; j<i; j++)
@@ -112,10 +113,73 @@ namespace Task_1_1
 
         static void FontAdj()
         {
+            bool flag = true;
+            List < string > fonts = new List<string>();
+            fonts.Add("None");
+            Console.WriteLine("Параметры надписи: " + string.Join(", ", fonts));
+
+            do
+            {
+
+                Console.WriteLine("Введите:\n 1:bold \n 2:italic \n 3:underline \n 0: exit");
+                int enter = Int32.Parse(Console.ReadLine());
+
+                switch (enter)
+                {
+                    case 1:
+                        if (fonts.Contains("Bold")) 
+                            fonts.Remove("Bold");
+                        else
+                        {
+                            fonts.Remove("None");
+                            fonts.Add("Bold");
+                        }
+                        Console.WriteLine("Параметры надписи: " + string.Join(", ", fonts));
+                        break;
+                    case 2:
+                        if (fonts.Contains("Italic"))
+                            fonts.Remove("Italic");
+
+                        else
+                        {
+                            fonts.Remove("None");
+                            fonts.Add("Italic");
+                        }
+                        Console.WriteLine("Параметры надписи: " + string.Join(", ", fonts));
+                        break;
+                    case 3:
+                        if (fonts.Contains("Underline"))
+                            fonts.Remove("Underline");
+                        else
+                        {
+                            fonts.Remove("None");
+                            fonts.Add("Underline");
+                        }
+                        Console.WriteLine("Параметры надписи: " + string.Join(", ", fonts));
+                        break;
+                    case 0:
+                        Console.WriteLine("Конец программы");
+                        flag = false;
+                        break;
+
+                }
+            }
+            while (flag==true);
+        }
+
 
         }
 
 
 
-    }
+            
+                
 }
+            
+
+            
+     
+        
+        
+
+
