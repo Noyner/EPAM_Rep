@@ -12,12 +12,12 @@ namespace Task_1_1
             //Triangle();                          // 1.1.2
             //AnotherTriangle();                   // 1.1.3
             //XmasTree();                          // 1.1.4
-            // SumOfNumbers();                      // 1.1.5
-            FontAdj();                             // 1.1.6
-                                                   // 1.1.7
-                                                   // 1.1.8
-                                                   // 1.1.9
-                                                   // 1.1.10
+            //SumOfNumbers();                      // 1.1.5
+            //FontAdj();                           // 1.1.6
+            ArrayProcessing();                   // 1.1.7
+            NoPositive();                        // 1.1.8
+            //NonNegativeSum();                    // 1.1.9
+                                                                      // 1.1.10
 
         }
 
@@ -166,9 +166,37 @@ namespace Task_1_1
             }
             while (flag==true);
         }
+        static void ArrayProcessing()
 
+        {
+            Console.WriteLine("Что делать с массивом? \n\n 1: Сгенерировать \n 2: Вывести на экран \n 3: Max \n 4: Min \n 5: Сортировка \n");
 
         }
+        static void NoPositive()
+        {
+
+        }
+        static void NonNegativeSum()
+        {   
+            int[] arr = new int[10] { 1, -1, 2, -2, 3, -3, 4, -4, 5, -5 };
+            int count = 0;
+            Console.WriteLine("Массив целых чисел:");
+
+            for (int i=0; i<arr.Length; i++)
+            {
+                if (arr[i] > 0)
+                    count++;
+            }
+
+            foreach (int m in arr)
+            {
+                Console.WriteLine(m);
+            }
+            Console.WriteLine("В массиве " + count + " положительных элементов");
+            Console.ReadKey();
+
+        }
+     }
 
 
 
