@@ -14,10 +14,10 @@ namespace Task_1_1
             //XmasTree();                          // 1.1.4
             //SumOfNumbers();                      // 1.1.5
             //FontAdj();                           // 1.1.6
-            ArrayProcessing();                   // 1.1.7
+            //ArrayProcessing();                   // 1.1.7
             NoPositive();                        // 1.1.8
-            //NonNegativeSum();                    // 1.1.9
-                                                                      // 1.1.10
+                                                 //NonNegativeSum();                    // 1.1.9
+                                                 // 1.1.10
 
         }
 
@@ -85,12 +85,12 @@ namespace Task_1_1
         {
             Console.Write("Введите высоту многоярусной ёлки: ");
             int height = Int32.Parse(Console.ReadLine());
-            for (int i=0; i<=height;i++)
+            for (int i = 0; i <= height; i++)
             {
-                for (int j=0; j<i; j++)
+                for (int j = 0; j < i; j++)
                 {
                     string str = new String('*', j);
-                    Console.WriteLine(str.PadLeft(height+3)+ "*" + str);
+                    Console.WriteLine(str.PadLeft(height + 3) + "*" + str);
 
                 }
             }
@@ -100,12 +100,12 @@ namespace Task_1_1
         static void SumOfNumbers()
         {
             int sum = 0;
-            for (int i = 0; i<1000; i++)
+            for (int i = 0; i < 1000; i++)
             {
- 
-                if (i%3==0 | i%5==0)
+
+                if (i % 3 == 0 | i % 5 == 0)
                 {
-                    Console.WriteLine(sum=sum+i);
+                    Console.WriteLine(sum = sum + i);
                 }
             }
             Console.ReadLine();
@@ -114,7 +114,7 @@ namespace Task_1_1
         static void FontAdj()
         {
             bool flag = true;
-            List < string > fonts = new List<string>();
+            List<string> fonts = new List<string>();
             fonts.Add("None");
             Console.WriteLine("Параметры надписи: " + string.Join(", ", fonts));
 
@@ -127,7 +127,7 @@ namespace Task_1_1
                 switch (enter)
                 {
                     case 1:
-                        if (fonts.Contains("Bold")) 
+                        if (fonts.Contains("Bold"))
                             fonts.Remove("Bold");
                         else
                         {
@@ -164,45 +164,122 @@ namespace Task_1_1
 
                 }
             }
-            while (flag==true);
+            while (flag == true);
         }
         static void ArrayProcessing()
 
         {
-            Console.WriteLine("Что делать с массивом? \n\n 1: Сгенерировать \n 2: Вывести на экран \n 3: Max \n 4: Min \n 5: Сортировка \n");
+
+            int n;
+
+            Console.WriteLine("Введите число элементов массива: ");
+            n = int.Parse(Console.ReadLine());
+            int[] array = new int[n];
+            int min = 101;
+            int max = -1;
+            int c;
+
+            Random rand = new Random();
+            for (int i = 0; i < array.Length; i++)
+            {
+                array[i] = rand.Next(100);
+                if (min > array[i])
+                    min = array[i];
+                if (max < array[i])
+                    max = array[i];
+            }
+
+            Console.WriteLine(Environment.NewLine + "Массив: " + Environment.NewLine);
+            for (int i = 0; i < array.Length; i++)
+            {
+                for (int j = 0; j < i; j++)
+                {
+                    if (array[i] > array[j])
+                    {
+                        c = array[i];
+                        array[i] = array[j];
+                        array[j] = c;
+                    }
+
+                }
+
+            }
+            foreach (int m in array)
+            {
+                Console.WriteLine(m);
+            }
+            Console.WriteLine(Environment.NewLine + "Минимальный элемент массива: " + min);
+            Console.WriteLine("Максимальный элемент массива: " + max);
+
+
+
+
 
         }
         static void NoPositive()
         {
 
-        }
-        static void NonNegativeSum()
-        {   
-            int[] arr = new int[10] { 1, -1, 2, -2, 3, -3, 4, -4, 5, -5 };
-            int count = 0;
-            Console.WriteLine("Массив целых чисел:");
+            int[,,] array = new int[3, 3, 3];
 
-            for (int i=0; i<arr.Length; i++)
+            Random rand = new Random();
+            for (int i = 0; i < array.GetLength(0); i++)
             {
-                if (arr[i] > 0)
-                    count++;
+                for (int j = 0; j < array.GetLength(1); j++)
+                {
+                    for (int k = 0; k < array.GetLength(2); k++)
+                    {
+                        array[i, j, k] = rand.Next(-150, 150);
+                        if (array[i, j, k] > 0)
+                        {
+                            array[i, j, k] = 0;
+                        }
+
+                    }
+
+                }
             }
 
-            foreach (int m in arr)
+            for (int i = 0; i < array.GetLength(0); i++)
             {
-                Console.WriteLine(m);
+                for (int j = 0; j < array.GetLength(1); j++)
+                {
+                    for (int k = 0; k < array.GetLength(2); k++)
+                    {
+                        Console.WriteLine(array[i, j, k] + " ");
+
+                    }
+                    Console.WriteLine(" ");
+                }
+                Console.WriteLine("------");
             }
-            Console.WriteLine("В массиве " + count + " положительных элементов");
-            Console.ReadKey();
+                static void NonNegativeSum()
+                {
+                    int[] arr = new int[10] { 1, -1, 2, -2, 3, -3, 4, -4, 5, -5 };
+                    int count = 0;
+                    Console.WriteLine("Массив целых чисел:");
+
+                    for (int i = 0; i < arr.Length; i++)
+                    {
+                        if (arr[i] > 0)
+                            count++;
+                    }
+
+                    foreach (int m in arr)
+                    {
+                        Console.WriteLine(m);
+                    }
+                    Console.WriteLine("В массиве " + count + " положительных элементов");
+                    Console.ReadKey();
+
+                }
+            }
 
         }
-     }
 
-
+    }
 
             
                 
-}
             
 
             
