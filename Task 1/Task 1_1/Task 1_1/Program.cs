@@ -252,39 +252,29 @@ namespace Task_1_1
                 }
                 Console.WriteLine("------");
             }
-                static void NonNegativeSum()
+            static void NonNegativeSum()
+            {
+                int[] arr = new int[10] { 1, -1, 2, -2, 3, -3, 4, -4, 5, -5 };
+                int count = 0;
+                Console.WriteLine("Массив целых чисел:");
+
+                for (int i = 0; i < arr.Length; i++)
                 {
-                    int[] arr = new int[10] { 1, -1, 2, -2, 3, -3, 4, -4, 5, -5 };
-                    int count = 0;
-                    Console.WriteLine("Массив целых чисел:");
-
-                    for (int i = 0; i < arr.Length; i++)
-                    {
-                        if (arr[i] > 0)
-                            count++;
-                    }
-
-                    foreach (int m in arr)
-                    {
-                        Console.WriteLine(m);
-                    }
-                    Console.WriteLine("В массиве " + count + " положительных элементов");
-                    Console.ReadKey();
-
+                    if (arr[i] > 0)
+                        count++;
                 }
-            }
 
+                foreach (int m in arr)
+                {
+                    Console.WriteLine(m);
+                }
+                Console.WriteLine("В массиве " + count + " положительных элементов");
+                Console.ReadKey();
+
+            }
         }
 
     }
 
-            
-                
-            
-
-            
-     
-        
-        
-
+}
 
