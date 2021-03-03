@@ -17,7 +17,7 @@ namespace Task_1_1
             //ArrayProcessing();                   // 1.1.7
             //NoPositive();                        // 1.1.8
             //NonNegativeSum();                    // 1.1.9
-            TwoDArr();                                    // 1.1.10
+            TwoDArr();                             // 1.1.10
 
         }
 
