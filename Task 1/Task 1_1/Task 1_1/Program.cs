@@ -15,9 +15,9 @@ namespace Task_1_1
             //SumOfNumbers();                      // 1.1.5
             //FontAdj();                           // 1.1.6
             //ArrayProcessing();                   // 1.1.7
-            NoPositive();                        // 1.1.8
-                                                 //NonNegativeSum();                    // 1.1.9
-                                                 // 1.1.10
+            //NoPositive();                        // 1.1.8
+            //NonNegativeSum();                    // 1.1.9
+            TwoDArr();                                    // 1.1.10
 
         }
 
@@ -210,11 +210,6 @@ namespace Task_1_1
             }
             Console.WriteLine(Environment.NewLine + "Минимальный элемент массива: " + min);
             Console.WriteLine("Максимальный элемент массива: " + max);
-
-
-
-
-
         }
         static void NoPositive()
         {
@@ -252,6 +247,7 @@ namespace Task_1_1
                 }
                 Console.WriteLine("------");
             }
+        }
             static void NonNegativeSum()
             {
                 int[] arr = new int[10] { 1, -1, 2, -2, 3, -3, 4, -4, 5, -5 };
@@ -272,8 +268,33 @@ namespace Task_1_1
                 Console.ReadKey();
 
             }
-        }
 
+            static void TwoDArr()
+            {
+            int[,] arr = new int [3, 3]
+            {
+                {1,2,3 },
+                {4,5,6 },
+                {7,8,9 }
+
+            };
+            int height = arr.GetLength(0);
+            int width = arr.GetLength(1);
+            int sum = 0;
+            for (int i =0; i<height;i++)
+            {
+                for (int k=0; k<width; k++)
+                {
+                    if ((i+k)%2==0)
+                    {
+                        sum += arr[i, k];
+                    }
+                }
+                
+            }
+            Console.WriteLine(sum);
+        }
+        
     }
 
 }
