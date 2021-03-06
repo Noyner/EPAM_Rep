@@ -7,8 +7,6 @@ namespace Task_1_2
         static void Main(string[] args)
         {
 
-            //Averages(); // 1.2.1
-            Doubler();
 
 
             static void Averages()
@@ -32,15 +30,15 @@ namespace Task_1_2
 
             static void Doubler()
             {
-                
+
                 Console.WriteLine("Введите первую строку: " + Environment.NewLine);
                 string one = Console.ReadLine();
                 Console.WriteLine(Environment.NewLine + "Введите вторую строку: " + Environment.NewLine);
                 string two = Console.ReadLine();
                 string result = "";
-                
 
-               foreach(char check in one)
+
+                foreach (char check in one)
                 {
                     if (two.Contains(check))
 
@@ -54,21 +52,65 @@ namespace Task_1_2
                     {
                         result += check;
                     }
-                    
+
                 }
 
                 Console.WriteLine(result);
                 Console.ReadKey();
+            }
 
+            static void Lowercase()
 
-
-
+            {
+                Console.WriteLine("Введите строку: " + Environment.NewLine);
+                string str = Console.ReadLine();
+                string[] words = str.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries); ;
+                int lower = 0;
+                foreach (string s in words)
+                {
+                    if (char.IsLower(s[0]))
+                    {
+                        lower++;
+                    }
+                }
+                Console.WriteLine(Environment.NewLine + "В строке {0} слов начинаются с маленькой буквы", lower);
+                Console.ReadKey();
 
 
             }
 
+            bool flag1 = true;
+            do
+            {
+
+                Console.WriteLine(Environment.NewLine + "Выберите задание:\n 1: Averages \n 2: Doubler \n 3: Lowercase \n 0: Выход");
+
+                int ent = Int32.Parse(Console.ReadLine());
+
+                switch (ent)
+                {
+                    case 1:
+                        Averages();
+                        break;
+
+                    case 2:
+                        Doubler();
+                        break;
+                    case 3:
+                        Lowercase();
+                        break;
+                    case 0:
+                        Console.WriteLine("Конец программы");
+                        flag1 = false;
+                        break;
+
+                }
+            }
+            while (flag1 == true);
+
 
 
         }
+
     }
 }
