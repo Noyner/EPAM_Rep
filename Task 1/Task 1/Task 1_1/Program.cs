@@ -41,6 +41,7 @@ namespace Task_1_1
                     }
                     Console.WriteLine();
 
+
                 }
                 Console.ReadKey();
             }
@@ -62,8 +63,6 @@ namespace Task_1_1
 
                     }
                     Console.WriteLine();
-
-
                 }
                 Console.ReadKey();
             }
@@ -78,10 +77,8 @@ namespace Task_1_1
                     {
                         string str = new String('*', j);
                         Console.WriteLine(str.PadLeft(height + 3) + "*" + str);
-
                     }
                 }
-
             }
 
             static void SumOfNumbers()
@@ -90,9 +87,9 @@ namespace Task_1_1
                 for (int i = 0; i < 1000; i++)
                 {
 
-                    if (i % 3 == 0 | i % 5 == 0)
+                    if (i % 3 == 0 || i % 5 == 0)
                     {
-                        Console.WriteLine(sum = sum + i);
+                        Console.WriteLine(sum += i);
                     }
                 }
                 Console.ReadLine();
@@ -100,14 +97,14 @@ namespace Task_1_1
 
             static void FontAdj()
             {
-                bool flag = true;
+                bool swBool = true;
                 List<string> fonts = new List<string>();
                 fonts.Add("None");
                 Console.WriteLine("Параметры надписи: " + string.Join(", ", fonts));
 
                 do
                 {
-
+                    Console.WriteLine("Параметры надписи: " + string.Join(", ", fonts) + Environment.NewLine);
                     Console.WriteLine("Введите:\n 1:bold \n 2:italic \n 3:underline \n 0: exit");
                     int enter = Int32.Parse(Console.ReadLine());
 
@@ -121,7 +118,6 @@ namespace Task_1_1
                                 fonts.Remove("None");
                                 fonts.Add("Bold");
                             }
-                            Console.WriteLine("Параметры надписи: " + string.Join(", ", fonts));
                             break;
                         case 2:
                             if (fonts.Contains("Italic"))
@@ -132,7 +128,6 @@ namespace Task_1_1
                                 fonts.Remove("None");
                                 fonts.Add("Italic");
                             }
-                            Console.WriteLine("Параметры надписи: " + string.Join(", ", fonts));
                             break;
                         case 3:
                             if (fonts.Contains("Underline"))
@@ -142,22 +137,19 @@ namespace Task_1_1
                                 fonts.Remove("None");
                                 fonts.Add("Underline");
                             }
-                            Console.WriteLine("Параметры надписи: " + string.Join(", ", fonts));
                             break;
                         case 0:
                             Console.WriteLine("Конец программы");
-                            flag = false;
+                            swBool = false;
                             break;
-
                     }
                 }
-                while (flag == true);
+                while (swBool);
             }
 
             static void ArrayProcessing()
 
             {
-
                 int n;
 
                 Console.WriteLine("Введите число элементов массива: ");
@@ -188,9 +180,7 @@ namespace Task_1_1
                             array[i] = array[j];
                             array[j] = c;
                         }
-
                     }
-
                 }
                 foreach (int m in array)
                 {
@@ -202,7 +192,6 @@ namespace Task_1_1
 
             static void NoPositive()
             {
-
                 int[,,] array = new int[3, 3, 3];
 
                 Random rand = new Random();
@@ -217,9 +206,7 @@ namespace Task_1_1
                             {
                                 array[i, j, k] = 0;
                             }
-
                         }
-
                     }
                 }
 
@@ -229,10 +216,9 @@ namespace Task_1_1
                     {
                         for (int k = 0; k < array.GetLength(2); k++)
                         {
-                            Console.WriteLine(array[i, j, k] + " ");
-
+                            Console.WriteLine(array[i, j, k]);
                         }
-                        Console.WriteLine(" ");
+                        Console.WriteLine();
                     }
                     Console.WriteLine("------");
                 }
@@ -240,7 +226,7 @@ namespace Task_1_1
 
             static void NonNegativeSum()
             {
-                int[] arr = new int[10] { 1, -1, 2, -2, 3, -3, 4, -4, 5, -5 };
+                int[] arr = new int[] { 1, -1, 2, -2, 3, -3, 4, -4, 5, -5 };
                 int count = 0;
                 Console.WriteLine("Массив целых чисел:");
 
@@ -256,7 +242,6 @@ namespace Task_1_1
                 }
                 Console.WriteLine("В массиве " + count + " положительных элементов");
                 Console.ReadKey();
-
             }
 
             static void TwoDArr()
@@ -266,7 +251,6 @@ namespace Task_1_1
                 {1,2,3 },
                 {4,5,6 },
                 {7,8,9 }
-
                 };
                 int height = arr.GetLength(0);
                 int width = arr.GetLength(1);
@@ -280,27 +264,22 @@ namespace Task_1_1
                             sum += arr[i, k];
                         }
                     }
-
                 }
                 Console.WriteLine(sum);
             }
 
-
-            bool flag1 = true;
+            bool swBool = true;
             do
             {
-
                 Console.WriteLine(Environment.NewLine + "Выберите задание:\n 1: Rectangle \n 2: Triangle \n 3: Another Triangle \n 4: X-mas tree \n 5: Sum of numbers" +
                     "\n 6: Font adjusment \n 7: Array processing \n 8: No positive \n 9: Non-negative \n 10: 2D Array \n 0: Выход");
 
                 int ent = Int32.Parse(Console.ReadLine());
-
                 switch (ent)
                 {
                     case 1:
                         Rectangle();
                         break;
-
                     case 2:
                         Triangle();
                         break;
@@ -328,33 +307,14 @@ namespace Task_1_1
                     case 10:
                         TwoDArr();
                         break;
-                        
-
                     case 0:
                         Console.WriteLine("Конец программы");
-                        flag1 = false;
+                        swBool = false;
                         break;
-
                 }
             }
-            while (flag1 == true);
-
-
-
+            while (swBool);
         }
-
-
-    
-        
-
-       
-        
-        
-            
-
-           
-        
     }
-
 }
 

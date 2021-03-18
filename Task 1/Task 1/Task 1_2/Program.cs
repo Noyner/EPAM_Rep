@@ -8,13 +8,11 @@ namespace Task_1_2
         static void Main(string[] args)
         {
 
-
-
             static void Averages()
             {
                 // Результат не округляю. Для округления поменять тип данных sum и average на int.
 
-                float sum = 0;
+                int sum = 0;
                 float average = 0;
                 Console.WriteLine("Введите предложение: " + Environment.NewLine);
                 string s = Console.ReadLine();
@@ -33,27 +31,20 @@ namespace Task_1_2
             {
 
                 Console.WriteLine("Введите первую строку: " + Environment.NewLine);
-                string one = Console.ReadLine();
+                StringBuilder one = new StringBuilder(Console.ReadLine());
                 Console.WriteLine(Environment.NewLine + "Введите вторую строку: " + Environment.NewLine);
-                string two = Console.ReadLine();
+                StringBuilder two = new StringBuilder(Console.ReadLine());
                 string result = "";
 
-
-                foreach (char check in one)
+                foreach (char check in one.ToString())
                 {
-                    if (two.Contains(check))
-
-                    {
-                        result += check;
-                        result += check;
-                    }
-
-                    else
+                    if (two.ToString().Contains(check))
 
                     {
                         result += check;
                     }
 
+                    result += check;
                 }
 
                 Console.WriteLine(result);
@@ -65,7 +56,7 @@ namespace Task_1_2
             {
                 Console.WriteLine("Введите строку: " + Environment.NewLine);
                 string str = Console.ReadLine();
-                string[] words = str.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries); ;
+                string[] words = str.Split(new char[] { ' ', ':', ',', '!', '?', '.', ';' }, StringSplitOptions.RemoveEmptyEntries); ;
                 int lower = 0;
                 foreach (string s in words)
                 {
@@ -76,14 +67,11 @@ namespace Task_1_2
                 }
                 Console.WriteLine(Environment.NewLine + "В строке {0} слов начинаются с маленькой буквы", lower);
                 Console.ReadKey();
-
-
             }
 
-            bool flag1 = true;
+            bool swBool = true;
             do
             {
-
                 Console.WriteLine(Environment.NewLine + "Выберите задание:\n 1: Averages \n 2: Doubler \n 3: Lowercase \n 0: Выход");
 
                 int ent = Int32.Parse(Console.ReadLine());
@@ -102,16 +90,11 @@ namespace Task_1_2
                         break;
                     case 0:
                         Console.WriteLine("Конец программы");
-                        flag1 = false;
+                        swBool = false;
                         break;
-
                 }
             }
-            while (flag1 == true);
-
-
-
+            while (swBool);
         }
-
     }
 }
