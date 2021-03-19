@@ -37,8 +37,8 @@ namespace Task_2._1._2
     {
         public override string ToString()
         {
-            return string.Format(Environment.NewLine + "Точки: A({0}), B = ({1})" +
-                "\nДлина: {2}", points[0].ToString(), points[1].ToString(), Len());
+            return string.Format(Environment.NewLine + "{0} {1}" +
+                "\nДлина {2}", points[0].ToString(), points[1].ToString(), Len());
         }
         public override double Area() { return 0.0; }
         public double Len() { return Math.Sqrt(Math.Pow(points[0].X - points[1].X, 2) + Math.Pow(points[0].Y - points[1].Y, 2)); }
@@ -67,22 +67,34 @@ namespace Task_2._1._2
         public double Radius { get; set; }
         public Point Center { get { return points[0]; } }
         public override double Area() { return Math.PI * Math.Pow(Radius, 2); }
-        public virtual double Circumference => Math.PI * Radius * 2;
+        public double Circumference() { return Math.PI* Radius *2; }
         public Circle(double x, double y, double Radius)
         {
             points = new Point[1] { new Point(x, y) };
             this.Radius = Radius;
+        }
+
+        public override string ToString()
+        {
+            return string.Format(Environment.NewLine + "Параметры круга. \n Центр: A{0}" +
+                "\n Площадь: {1} \n Длина: {2}", points[0].ToString(), Area(), Circumference() );
         }
     }
     class Ring : Circle
     {
         public double InnerRadius { get; set; }
         public override double Area() { return Math.PI * ((Radius * Radius) - (InnerRadius * InnerRadius)); }
-        public override double Circumference => (2 * (Math.PI * Radius)) + (2 * (Math.PI * InnerRadius));
+        public new double Circumference() { return (2 * (Math.PI * Radius)) + (2 * (Math.PI * InnerRadius)); }
         public Ring(double x, double y, double Radius, double InnerRadius)
             : base(x, y, Radius)
         {
             this.InnerRadius = InnerRadius;
+        }
+
+        public override string ToString()
+        {
+            return string.Format(Environment.NewLine + "Параметры окружности. \n Центр: A{0}, " +
+                "\nПлощадь: {1} \n Длина: {2}", points[0].ToString(), Area(), Circumference());
         }
     }
 
@@ -113,7 +125,7 @@ namespace Task_2._1._2
 
         public override string ToString()
         {
-            return string.Format(Environment.NewLine + "Стороны: AB: {0}\n BC: {1}\n CA: {2}\n" + "Площадь: {3}" +
+            return string.Format(Environment.NewLine + "Параметры треугольника. Стороны: AB: {0} BC: {1} CA: {2}" + "\nПлощадь: {3}" +
                 "\nПериметр: {4}", new Line(points[0], points[1]).ToString(), new Line(points[1], points[2]).ToString(),
                 new Line(points[2], points[0]).ToString(), Area(), Perimeter);
         }
@@ -143,7 +155,7 @@ namespace Task_2._1._2
         public double Perimeter => (new Line(points[0], points[1]).Len() + new Line(points[1], points[2]).Len()) * 2;
         public override string ToString()
         {
-            return string.Format(Environment.NewLine + "Стороны: AB: {0}\n BC: {1}\n CD: {2}\n DA: {5}" + "Площадь: {3}" +
+            return string.Format(Environment.NewLine + "Параметры прямоугольника. Стороны: AB: {0}\n BC: {1}\n CD: {2}\n DA: {5}" + "\nПлощадь: {3}" +
                 "\nПериметр: {4}", new Line(points[0], points[1]).ToString(), new Line(points[1], points[2]).ToString(),
                 new Line(points[2], points[3]).ToString(), Area(), Perimeter, new Line(points[3], points[0]).ToString());
         }
@@ -202,7 +214,7 @@ namespace Task_2._1._2
         }
         public void AddShape()
         {
-            Console.WriteLine("Выберите тип фигуры: \n1. Линия \n2. Круг \n 3. Кольцо \n4. Треугольник \n5. Прямоугольник \n6. Квадрат ");
+            Console.WriteLine("Выберите тип фигуры: \n1. Линия \n2. Круг \n3. Кольцо \n4. Треугольник \n5. Прямоугольник \n6. Квадрат ");
             string enter = Console.ReadLine();
             switch (enter)
             {
