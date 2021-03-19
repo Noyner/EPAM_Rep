@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Task_2._1._2
 {
@@ -6,218 +7,344 @@ namespace Task_2._1._2
     {
         static void Main(string[] args)
         {
-            //Triangle tri = new Triangle();
-            //tri.MakeTriangle();
-
-            Square sq = new Square();
-            sq.MakeSquare();
-
-            //Circle circle = new Circle(0, 0, 1);
-            //Ring ring = new Ring(0, 0, 2, 1);
-            //Console.WriteLine("Площадь: {0} ", circle.CircleArea);
-            //Console.WriteLine("Длина: {0} ", circle.Circumference);
-
-            //Console.WriteLine("Площадь кольца: " + ring.RingArea);
-            //Console.WriteLine("Суммарная длина внешней и внутренней окружностей: " + ring.SummaryLen);
+            Manager.start();
         }
     }
 
-    class Figure
+    abstract class Shape
     {
-        protected double a,b,c,d;
-        public double X { get; set; }
-        public double Y { get; set; }
+        protected Point[] points { get; set; }
+        public abstract double Area();
+    }
+
+    sealed class Point
+    {
+        public double X { get; }
+        public double Y { get; }
+        public Point(double x, double y) { this.X = x; this.Y = y; }
+        public override string ToString()
+        {
+            return string.Format(Environment.NewLine + "({0}, {1})", X,Y);
+        }
+        public static Point CreatePointFromConsole(string name)
+        {
+            Console.WriteLine("Введите координаты точки " + name);
+            string[] coords = Console.ReadLine().Split(" ");
+            double X = double.Parse(coords[0]);
+            double Y = double.Parse(coords[1]);
+            return new Point(X, Y);
+        }
+    }
+    class Line : Shape
+    {
+        public override string ToString()
+        {
+            return string.Format(Environment.NewLine + "Точки: A({0}), B = ({1})" +
+                "\nДлина: {2}", points[0].ToString(), points[1].ToString(), Len());
+        }
+        public override double Area() { return 0.0; }
+        public double Len() { return Math.Sqrt(Math.Pow(points[0].X - points[1].X, 2) + Math.Pow(points[0].Y - points[1].Y, 2)); }
+        public Line(double x1, double y1, double x2, double y2)
+        {
+            this.points = new Point[2] { new Point(x1, y1), new Point(x2, y2) };
+        }
+
+        public Line(Point a, Point b)
+        {
+            this.points = new Point[2] { new Point(a.X, a.Y), new Point(b.X, b.Y) };
+        }
+
+        public static double GetCos(Line A, Line B)
+        {
+            double XA = A.points[0].X - A.points[1].X;
+            double YA = A.points[0].Y - A.points[1].Y;
+
+            double XB = B.points[0].X - B.points[1].X;
+            double YB = B.points[0].Y - B.points[1].Y;
+
+            return (XA * YA + XB * YB) / A.Len() * B.Len();
+        }
+    }
+
+    class Circle : Shape
+    {
         public double Radius { get; set; }
+        public Point Center { get { return points[0]; } }
+        public override double Area() { return Math.PI * Math.Pow(Radius, 2); }
+        public virtual double Circumference => Math.PI * Radius * 2;
+        public Circle(double x, double y, double Radius)
+        {
+            points = new Point[1] { new Point(x, y) };
+            this.Radius = Radius;
+        }
 
-        public Figure() { }
-        public Figure (double x, double y)
-        {
-            this.X = x;
-            this.Y = y;
-        }
-        public double GetX()
-        {
-            return X;
-        }
-        public double GetY()
-        {
-            return Y;
-        }
+
     }
-
-    class Circle : Figure
-    {
-        public Circle(double x, double y, double Radius) { this.X = x; this.Y = y; this.Radius = Radius; }
-
-        public double CircleArea => Math.PI * Math.Pow(Radius, 2);
-        public double Circumference => ((Math.PI * Radius) * 2);
-    }
-
-    class Ring : Figure
+    class Ring : Circle
     {
         public double InnerRadius { get; set; }
-
+        public override double Area() { return Math.PI * ((Radius * Radius) - (InnerRadius * InnerRadius)); }
+        public override double Circumference => (2 * (Math.PI * Radius)) + (2 * (Math.PI * InnerRadius));
         public Ring(double x, double y, double Radius, double InnerRadius)
-        { this.X = x; this.Y = y; this.Radius = Radius; this.InnerRadius = InnerRadius; }
-
-        public double RingArea => Math.PI * ((Radius * Radius) - (InnerRadius * InnerRadius));
-        public double SummaryLen => (2 * (Math.PI * Radius)) + (2 * (Math.PI * InnerRadius));
-
+            : base(x, y, Radius)
+        {
+            this.InnerRadius = InnerRadius;
+        }
     }
 
-    class Triangle : Figure
+    class Triangle : Shape
     {
-        double P { get; set; } 
-        public Triangle (Figure a, Figure b, Figure c)
+        double HalfP { get; } // полупериметр
+        double Perimeter { get { return HalfP * 2; } }
+        public override double Area()
         {
-            double x1 = a.GetX(), y1 = a.GetY();
-            double x2 = b.GetX(), y2 = b.GetY();
-            double x3 = c.GetX(), y3 = c.GetY();
-
-            this.a = Math.Sqrt(Math.Pow(x2 - x1, 2) + Math.Pow(y2 - y1, 2));
-            this.b = Math.Sqrt(Math.Pow(x3 - x2, 2) + Math.Pow(y3 - y2, 2));
-            this.c = Math.Sqrt(Math.Pow(x3 - x1, 2) + Math.Pow(y3 - y1, 2));
+            return Math.Sqrt(HalfP * (HalfP - new Line(points[0], points[1]).Len()) * (HalfP - new Line(points[1], points[2]).Len() * (HalfP - new Line(points[2], points[0]).Len())));
         }
-
-        public Triangle() { }
-
-        public void MakeTriangle()
+        public Triangle(double x1, double y1, double x2, double y2, double x3, double y3)
         {
-            double x;
-            double y;
-            P = (a + b + c) / 2;
+            Point A = new Point(x1, y1);
+            Point B = new Point(x2, y2);
+            Point C = new Point(x3, y3);
+            Line AB = new Line(A, B);
+            Line BC = new Line(B, C);
+            Line CA = new Line(C, A);
 
-            Console.WriteLine("Координата x1: ");
-            double.TryParse(Console.ReadLine(), out x);
+            HalfP = (AB.Len() + BC.Len() + CA.Len()) / 2;
 
-            Console.WriteLine("Координата y1: ");
-            double.TryParse(Console.ReadLine(), out y);
+            if ((AB.Len() + BC.Len() < CA.Len()) || (BC.Len() + CA.Len() < AB.Len()) || (CA.Len() + AB.Len() < BC.Len()))
+                throw new Exception("Неправильный треугольник");
 
-            Figure SideA = new Figure(x, y);
+            points = new Point[3] { new Point(x1, y1), new Point(x2, y2), new Point(x3, y3) };
 
-            Console.WriteLine("Координата x2: ");
-            double.TryParse(Console.ReadLine(), out x);
 
-            Console.WriteLine("Координата y2: ");
-            double.TryParse(Console.ReadLine(), out y);
-
-            Figure SideB = new Figure(x, y);
-
-            Console.WriteLine("Координата x3: ");
-            double.TryParse(Console.ReadLine(), out x);
-
-            Console.WriteLine("Координата y3: ");
-            double.TryParse(Console.ReadLine(), out y);
-
-            Figure SideC = new Figure(x, y);
-
-            Triangle tri = new Triangle(SideA, SideB, SideC);
-
-            Console.WriteLine(tri.ToString());
-            Console.WriteLine(Environment.NewLine + "Площадь треугольника: " + tri.TriangleSquare);
-            Console.WriteLine("Периметр треугольника: " +tri.TrianglePerimetr);
-
-            Console.ReadKey();
-        }
-        public override string ToString()
-        {
-            P = (a + b + c) / 2;
-            return string.Format(Environment.NewLine + "Треугольник со сторонами: a = {0}, b = {1}, c = {2}", a, b, c);
-        }
-        public double TriangleSquare => Math.Sqrt(P * (P - a) * (P - b) * (P - c));
-        public double TrianglePerimetr => a + b + c; 
-        }
-
-    class Square : Figure
-    {
-        public Square (Figure a, Figure b, Figure c, Figure d)
-        {
-            double x1 = a.GetX(), y1 = a.GetY();
-            double x2 = b.GetX(), y2 = b.GetY();
-            double x3 = c.GetX(), y3 = c.GetY();
-            double x4 = d.GetX(), y4 = d.GetY();
-
-            this.a = Math.Sqrt(Math.Pow(x2 - x1, 2) + Math.Pow(y2 - y1, 2));
-            this.b = Math.Sqrt(Math.Pow(x3 - x2, 2) + Math.Pow(y3 - y2, 2));
-            this.c = Math.Sqrt(Math.Pow(x3 - x4, 2) + Math.Pow(y3 - y4, 2));
-            this.d = Math.Sqrt(Math.Pow(x4 - x1, 2) + Math.Pow(y4 - y1, 2));
-        }
-
-        public Square () { }
-
-        public void MakeSquare()
-        {
-            double x;
-            double y;
-
-            Console.WriteLine("Координата x1: ");
-            double.TryParse(Console.ReadLine(), out x);
-
-            Console.WriteLine("Координата y1: ");
-            double.TryParse(Console.ReadLine(), out y);
-
-            Figure SideA = new Figure(x, y);
-
-            Console.WriteLine("Координата x2: ");
-            double.TryParse(Console.ReadLine(), out x);
-
-            Console.WriteLine("Координата y2: ");
-            double.TryParse(Console.ReadLine(), out y);
-
-            Figure SideB = new Figure(x, y);
-
-            Console.WriteLine("Координата x3: ");
-            double.TryParse(Console.ReadLine(), out x);
-
-            Console.WriteLine("Координата y3: ");
-            double.TryParse(Console.ReadLine(), out y);
-
-            Figure SideC = new Figure(x, y);
-
-            Console.WriteLine("Координата x4: ");
-            double.TryParse(Console.ReadLine(), out x);
-
-            Console.WriteLine("Координата y4: ");
-            double.TryParse(Console.ReadLine(), out y);
-
-            Figure SideD = new Figure(x, y);
-
-            Square sq = new Square (SideA, SideB, SideC, SideD);
-
-            Console.WriteLine(sq.ToString());
-            Console.WriteLine(Environment.NewLine + "Площадь квадрата: " + sq.SquareArea);
-            Console.WriteLine("Периметр квадрата: " + sq.SquarePerimeter);
-
-            Console.ReadKey();
         }
 
         public override string ToString()
         {
-            return string.Format(Environment.NewLine + "Квадрат со сторонами: a = {0}, b = {1}, c = {2}, d = {3}", a, b, c, d);
-        }
+            return string.Format(Environment.NewLine + "Стороны: AB: {0}\n BC: {1}\n CA: {2}\n" + "Площадь: {3}" +
+                "\nПериметр: {4}", new Line(points[0], points[1]).ToString(), new Line(points[1], points[2]).ToString(),
+                new Line(points[2], points[0]).ToString(), Area(), Perimeter);
 
-        public double SquareArea => a * a;
-        public double SquarePerimeter => a * 4;
+        }
     }
 
-    //class Rectangle : Figure
-    //{
-    //    public Rectangle(double a, double b)
-    //    {
-    //        this.A = a;
-    //        this.B = b;
-    //    }
 
-    //    public double RectangleArea => A * B;
-    //    public double RectanglePerimeter => (A + B) * 2;
+    class Rectangle : Shape
+    {
+        public Rectangle(double x1, double y1, double x2, double y2, double x3, double y3, double x4, double y4)
+        {
+            Point A = new Point(x1, y1);
+            Point B = new Point(x2, y2);
+            Point C = new Point(x3, y3);
+            Point D = new Point(x4, y4);
 
-    //}
+            Line AB = new Line(A, B);
+            Line BC = new Line(B, C);
+            Line CD = new Line(C, D);
+            Line AD = new Line(A, D);
 
-    //class Line : Figure
-    //{
-    //    public Line(double a)
-    //    {
-    //        this.A = a;
-    //    }
-    //}
+            if (Line.GetCos(AB, BC) != 0 || Line.GetCos(BC, CD) != 0 || Line.GetCos(CD, AD) != 0)
+                throw new Exception("Неправильный прямоугольник");
+
+            points = new Point[4] { new Point(x1, y1), new Point(x2, y2), new Point(x3, y3), new Point(x4, y4) };
+
+        }
+        public override double Area() { return new Line(points[0], points[1]).Len() * new Line(points[1], points[2]).Len(); }
+        public double Perimeter => (new Line(points[0], points[1]).Len() + new Line(points[1], points[2]).Len()) * 2;
+
+        public override string ToString()
+        {
+            return string.Format(Environment.NewLine + "Стороны: AB: {0}\n BC: {1}\n CD: {2}\n DA: {5}" + "Площадь: {3}" +
+                "\nПериметр: {4}", new Line(points[0], points[1]).ToString(), new Line(points[1], points[2]).ToString(),
+                new Line(points[2], points[3]).ToString(), Area(), Perimeter, new Line(points[3], points[0]).ToString());
+        }
+    }
+    class Square : Rectangle
+    {
+        public Square(double x1, double y1, double x2, double y2, double x3, double y3, double x4, double y4) 
+            : base (x1, y1, x2, y2, x3,  y3, x4, y4)
+        {
+            if (new Line(points[0], points[1]).Len() != new Line(points[1], points[2]).Len())
+                throw new Exception("У данного квадрата стороны не равны. Значит это не квадрат");
+        }
+    }
+
+    class Desktop
+    {
+        List<Shape> shapes;
+
+        public Desktop() { shapes = new List<Shape>(); }
+        public void Menu()
+        {
+            bool swBool = true;
+            bool swUser = false;
+            do
+            {
+                Console.WriteLine(Environment.NewLine + "Выберите действие: \n1. Добавить фигуру \n2. Вывести фигуры \n3. Очистить холст \n4. Сменить пользователя \n5. Выход ");
+                string enter = Console.ReadLine();
+                switch (enter)
+                {
+                    case "1":
+                        AddShape();
+                        break;
+                    case "2":
+                        ShowShapes();
+                        break;
+                    case "3":
+                        shapes = new List<Shape>();
+                        break;
+                    case "4":
+                        Console.WriteLine("Введите имя пользователя: ");
+                        Manager.SwitchUser(Console.ReadLine());
+                        swUser = true;
+                        swBool = false;
+                        break;
+                    case "5":
+                        Console.WriteLine("Конец программы");
+                        swBool = false;
+                        break;
+                    default:
+                        Console.WriteLine("Вы ввели неверное значение"); 
+                        break;
+                }
+            }
+            while (swBool);
+
+            if (swUser) { Manager.GetCurrent(); }
+        }
+
+        public void AddShape()
+        {
+            Console.WriteLine("Выберите тип фигуры: \n1. Линия \n2. Круг \n 3. Кольцо \n4. Треугольник \n5. Прямоугольник \n6. Квадрат ");
+            string enter = Console.ReadLine();
+            switch (enter)
+            {
+                case "1":
+                    var A=Point.CreatePointFromConsole("A");
+                    var B = Point.CreatePointFromConsole("B");
+                    var line = new Line(A,B);
+                    shapes.Add(line);
+                    Console.WriteLine("Линия создана");
+                    break;
+                case "2":
+                    var Center = Point.CreatePointFromConsole("Center Circle");
+                    Console.WriteLine("Введите радиус: ");
+                    var Rad = double.Parse(Console.ReadLine());
+                    var circle = new Circle(Center.X, Center.Y, Rad);
+                    shapes.Add(circle);
+                    Console.WriteLine("Круг создан");
+                    break;
+                case "3":
+                    var Center2 = Point.CreatePointFromConsole("Center Ring");
+                    Console.WriteLine("Введите внешний радиус: ");
+                    var Rad2 = double.Parse(Console.ReadLine());
+                    Console.WriteLine("Введите внутренний радиус: ");
+                    var InnRad = double.Parse(Console.ReadLine());
+                    var ring = new Ring(Center2.X, Center2.Y, Rad2, InnRad);
+                    shapes.Add(ring);
+                    Console.WriteLine("Кольцо создано");
+                    break;
+                case "4":
+                    var A_Tri = Point.CreatePointFromConsole("A");
+                    var B_Tri = Point.CreatePointFromConsole("B");
+                    var C_Tri = Point.CreatePointFromConsole("C");
+                    var tri = new Triangle(A_Tri.X, A_Tri.Y, B_Tri.X, B_Tri.Y, C_Tri.X, C_Tri.Y);
+                    shapes.Add(tri);
+                    Console.WriteLine("Треугольник создан");
+                    break;
+                case "5":
+                    var A_Rec = Point.CreatePointFromConsole("A");
+                    var B_Rec = Point.CreatePointFromConsole("B");
+                    var C_Rec = Point.CreatePointFromConsole("C");
+                    var D_Rec = Point.CreatePointFromConsole("D");
+                    var rec = new Rectangle(A_Rec.X, A_Rec.Y, B_Rec.X, B_Rec.Y, C_Rec.X, C_Rec.Y, D_Rec.X, D_Rec.Y);
+                    shapes.Add(rec);
+                    Console.WriteLine("Прямоугольник создан");
+                    break;
+                case "6":
+                    var A_Sq = Point.CreatePointFromConsole("A");
+                    var B_Sq = Point.CreatePointFromConsole("B");
+                    var C_Sq = Point.CreatePointFromConsole("C");
+                    var D_Sq = Point.CreatePointFromConsole("D");
+                    var sq = new Rectangle(A_Sq.X, A_Sq.Y, B_Sq.X, B_Sq.Y, C_Sq.X, C_Sq.Y, D_Sq.X, D_Sq.Y);
+                    shapes.Add(sq);
+                    Console.WriteLine("Квадрат создан");
+                    break;
+                default:
+                    Console.WriteLine("Вы ввели неверное значение");
+                    break;
+            }
+        }
+
+        public void ShowShapes()
+        {
+            if(shapes.Count==0)
+                Console.WriteLine("У вас нет фигур");
+
+            foreach (var sas in shapes)
+            {
+                Console.WriteLine(sas.ToString());
+            }
+        }
+    }
+
+    public class Manager
+    {
+        static Dictionary<string, Desktop> users = new Dictionary<string, Desktop>();
+        static string currentUser;
+
+        public static void AddUser()
+        {
+            Console.WriteLine("Введите ваше имя: ");
+            string name = Console.ReadLine();
+            if (users.ContainsKey(name))
+                Console.WriteLine("Такой пользователь уже существует");
+            else
+            {
+                users[name] = new Desktop();
+                currentUser = name;
+            }
+        }
+
+        public static void AddUser(string name)
+        {
+            if (users.ContainsKey(name))
+                throw new Exception ("Такой пользовател уже существует");
+            else
+            {
+                users[name] = new Desktop();
+                currentUser = name;
+            }
+        }
+        public static void SwitchUser(string name)
+        {
+            if (!users.ContainsKey(name))
+                AddUser(name);
+
+            currentUser = name;
+        }
+
+        public static void start()
+        {
+            Manager.AddUser();
+            users[currentUser].Menu();
+        }
+
+        public static void GetCurrent()
+        {
+            users[currentUser].Menu();
+        }
+    }
+
 }
+
+
+
+
+
+
+
+
+
+
+
