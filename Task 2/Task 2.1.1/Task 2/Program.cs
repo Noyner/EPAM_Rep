@@ -1,53 +1,21 @@
 ﻿using System;
 using System.Text;
+using MyLib;
 
 namespace Task_2
-
 {
-
     class Program
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Привет! Введи первую строку: " + Environment.NewLine);
-            NewStr s1 = new NewStr { str = Console.ReadLine() };
-            Console.WriteLine("А теперь введи вторую строку: " + Environment.NewLine);
-            NewStr s2 = new NewStr { str = Console.ReadLine() };
-
-
-
-            //bool result = s1 > s2;
-            //Console.WriteLine(result);
-
-            //bool result2 = s1 == s2;
-            //Console.WriteLine(result2);
-
-
-            //Console.WriteLine(s1.str + s2.str);                      \
-
-            //Console.WriteLine();
-            //s1.SearchIndex();                                         // Поиск символа в строке
-
-            //s1.SearchStr();                                           // Поиск подстроки в строке
-
-            
-            //NewStr ind = new NewStr();
-            //ind[0] = new NewStr { str = "Test String" };
-            //ind[1] = new NewStr { str = "One More Test String" };      // Вызов индексатора 
-
-            //NewStr TestInd = ind[0];
-            //Console.WriteLine(TestInd.str);
-
-
-            Console.ReadKey();
+            Manager manager = new Manager();
+            manager.Menu();
 
         }
     }
     class NewStr
     {
-        
         internal string str { get; set; }
-
         public void ToCharArr()
         {
             str.ToCharArray();
@@ -63,7 +31,6 @@ namespace Task_2
             str.ToString();
             Console.WriteLine("Массив символов успешно проеобразован в строку! " + Environment.NewLine + str);
         }
-
         public void SearchIndex()
         {
             Console.WriteLine("Какой символ в строке хочешь найти: ");
@@ -71,7 +38,6 @@ namespace Task_2
             Console.WriteLine("Позиция символа в строке: " + IndexOfChar);
             Console.ReadKey();
         }
-
         public void SearchStr()
         {
             Console.WriteLine("Какую подстроку ты хочешь найти в строке: ");
@@ -80,48 +46,47 @@ namespace Task_2
             Console.WriteLine(Environment.NewLine + ContStr);
             Console.ReadKey();
         }
-
         // Переопределяем операторы 
-
         public static NewStr operator +(NewStr s1, NewStr s2)
         {
             return new NewStr { str = s1.str + s2.str };
         }
-
         public static bool operator <(NewStr s1, NewStr s2)
         {
             return s1.str.Length < s2.str.Length;
         }
-
         public static bool operator >(NewStr s1, NewStr s2)
         {
             return s1.str.Length > s2.str.Length;
         }
-
         public static bool operator ==(NewStr s1, NewStr s2)
         {
             return object.Equals(s1.str, s2.str);
         }
-
         public static bool operator !=(NewStr s1, NewStr s2)
         {
             return !object.Equals(s1.str, s2.str);
         }
+        public override bool Equals(object obj)
+        {
+            NewStr myStr = obj as NewStr;
 
-        //public override bool Equals(object str)
-        //{
-        //    return CompareTo(str as NewStr) == 0;
-
-        //}
-
+            if (myStr == null)
+            {
+                return false;
+            }
+            return myStr.str == this.str;
+        }
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
         // Индексатор 
         public NewStr()
         {
             data = new NewStr[5];
         }
-
-        NewStr[] data;
-
+        readonly NewStr[] data;
         public NewStr this[int index]
         {
             get
@@ -132,10 +97,61 @@ namespace Task_2
             {
                 data[index] = value;
             }
-
         }
+        public void GetIndexator()
+        {
+            NewStr ind = new NewStr();
+            Console.WriteLine("Вызываю индексатор и добавляю в него две строки");
+            ind[0] = new NewStr { str = "Test String" };
+            ind[1] = new NewStr { str = "One More Test String" };      // Вызов индексатора 
 
-        
-
+            NewStr TestInd1 = ind[0];
+            NewStr TestInd2 = ind[1];
+            Console.WriteLine("Первая строка: " + TestInd1.str);
+            Console.WriteLine("Вторая строка: " + TestInd2.str);
+        }
+    }
+    class Manager : NewStr
+    {
+        public void Menu()
+        {
+            Console.WriteLine("Привет! Введите строку: " + Environment.NewLine);
+            NewStr s1 = new NewStr { str = Console.ReadLine() };
+            bool swBool = true;
+            do
+            {
+                Console.WriteLine(Environment.NewLine + "Выберите действие:\n \n1. Конвертировать в массив символов \n2. Найти символ в строке \n3. Найти подстроку в строке \n4. Конвертировать в строку \n5. Индексатор \n6.Вызов DLL**  \n0. Выход ");
+                string enter = Console.ReadLine();
+                switch (enter)
+                {
+                    case "1":
+                        s1.ToCharArr();
+                        break;
+                    case "2":
+                        s1.SearchIndex();
+                        break;
+                    case "3":
+                        s1.SearchIndex();
+                        break;
+                    case "4":
+                        s1.ToStr();
+                        break;
+                    case "5":
+                        s1.GetIndexator();
+                        break;
+                    case "6":
+                        Helper.Hello();
+                        break;
+                    case "0":
+                        Console.WriteLine("Конец программы");
+                        swBool = false;
+                        break;
+                    default:
+                        Console.WriteLine("Вы ввели неверное значение");
+                        break;
+                }
+            }
+            while (swBool);
+        }
     }
 }
