@@ -4,13 +4,6 @@ using System.Linq;
 
 namespace GameDev
 {
-    class Options
-    {
-        public const int DRAW_LATENCY = 50;
-        public const string HERO_SYMBOL = "T";
-        public const string EMPTY_CELL = "_";
-        public const string BONUS = "B";
-    }
     class Program
     {
         public static void Main(string[] args)
@@ -26,33 +19,35 @@ namespace GameDev
 
             f.fillField();
             f.SetBonuses();
+            f.SetObstruction();
             f.SetHero(0, 9, p);
 
             DrawEngine.player = p;
             DrawEngine.drawFieldSync(f);
         }
     }
-
+    class Options
+    {
+        public const int DRAW_LATENCY = 50;
+        public const string HERO_SYMBOL = "T";
+        public const string EMPTY_CELL = "_";
+        public const string BONUS = "B";
+        public const string OBSTRUCTION = "O";
+    }
     class Player
     {
         public int X;
         public int Y;
+        public static int heart = 3;
         string hero = Options.HERO_SYMBOL;
         public override string ToString()
         {
             return hero;
         }
     }
-
     class DrawEngine
     {
         public static Player player;
-        public static Bonuses bonuses;
-        public void DrawAsyc()
-        {
-
-        }
-
         public static void drawFieldSync(Field f)
         {
             Console.Clear();
@@ -67,18 +62,17 @@ namespace GameDev
             }
             Console.WriteLine(fieldPrint);
 
-            Console.WriteLine("X: " + player.X + "\n" + "Y: " + player.Y);
+            Console.WriteLine("Y: " + player.X + "\n" + "X: " + player.Y);
             Console.WriteLine("Bonuses: " + Bonuses.collected);
+            Console.WriteLine("Heart: " + Player.heart);
         }
     }
-
     class Field
     {
         readonly int Width = 10;
         readonly int Height = 15;
-        string fieldSymbol = Options.EMPTY_CELL;
+        readonly string fieldSymbol = Options.EMPTY_CELL;
         public string[,] field;
-
         public void SetEmptyCell(int x, int y)
         {
             field[x, y] = Options.EMPTY_CELL;
@@ -97,11 +91,21 @@ namespace GameDev
             {
                 Bonuses.collected++;
             }
+
+            if (field[x,y] == Options.OBSTRUCTION)
+            {
+                Player.heart--; 
+            }
+
+            if (Player.heart <= 0)
+            {
+                Console.WriteLine(Environment.NewLine + "ТЫ МЁРТВ");
+                Console.ReadKey();
+            }
             field[x, y] = Options.HERO_SYMBOL;
             field[p.X, p.Y] = Options.EMPTY_CELL;
             p.X = x;
             p.Y = y;
-
         }
         public void fillField()
         {
@@ -117,7 +121,6 @@ namespace GameDev
                 Console.WriteLine();
             }
         }
-
         public void SetBonuses()
         {
             int bonus = 5;
@@ -138,10 +141,31 @@ namespace GameDev
             .ToArray();
 
             for (int i = 0; i < bonus; i++)
-                field[bonuses_x[i], bonuses_x[i]] = Options.BONUS;
+                field[bonuses_x[i], bonuses_y[i]] = Options.BONUS;
+        }
+        public void SetObstruction()
+        {
+            int obstruction = 7;
+            int Min = 0;
+            int Max_x = field.GetLength(0);
+            int Max_y = field.GetLength(1);
+
+            Random rand = new Random();
+
+            int[] obstruction_x = Enumerable
+            .Repeat(0, obstruction)
+            .Select(i => rand.Next(Min, Max_x))
+            .ToArray();
+
+            int[] obstruction_y = Enumerable
+            .Repeat(0, obstruction)
+            .Select(i => rand.Next(Min, Max_y))
+            .ToArray();
+
+            for (int i = 0; i < obstruction; i++)
+                field[obstruction_x[i], obstruction_y[i]] = Options.OBSTRUCTION;
         }
     }
-
     class Bonuses
     {
         public static int collected = 0;
@@ -171,8 +195,6 @@ namespace GameDev
                                 field.SetHero(player.X + 1, player.Y, player);
 
                             DrawEngine.drawFieldSync(field);
-
-                            //Console.WriteLine(number.ToString());
                             break;
                         }
                     case ConsoleKey.W:
@@ -183,7 +205,6 @@ namespace GameDev
                                 field.SetHero(player.X - 1, player.Y, player);
 
                             DrawEngine.drawFieldSync(field);
-                            // Console.WriteLine(number.ToString());
                             break;
                         }
                     case ConsoleKey.A:
@@ -194,7 +215,6 @@ namespace GameDev
                                 field.SetHero(player.X, player.Y - 1, player);
 
                             DrawEngine.drawFieldSync(field);
-                            //Console.WriteLine(number.ToString());
                             break;
                         }
                     case ConsoleKey.D:
@@ -205,7 +225,6 @@ namespace GameDev
                                 field.SetHero(player.X, player.Y + 1, player);
 
                             DrawEngine.drawFieldSync(field);
-                            // Console.WriteLine(number.ToString());
                             break;
                         }
                     default:
