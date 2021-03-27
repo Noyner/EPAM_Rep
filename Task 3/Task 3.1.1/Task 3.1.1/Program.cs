@@ -7,35 +7,34 @@ namespace Task_3._1._1
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Введите количество участников: ");
+            Console.WriteLine("Введите N участников: ");
             int N = Int32.Parse(Console.ReadLine());
+            Console.WriteLine("Сгенерирован круг людей. Начинаем вычёркивать каждого второго");
 
-            List<int> peoples = new List<int>(N) { };
+            int[] myArray = new int[N];
 
-            for (int i = 1; i < N+1; i++)
+            for (int i=0; i<N; i++)
             {
-                peoples.Add(i);
+                myArray[i] = 1+i;
             }
 
-            //foreach (int k in peoples)
-            //{
-            //    Console.WriteLine(k);
-            //}
+            LinkedList<int> circle = new LinkedList<int>(myArray);
+            var current = circle.First;
 
-            for (int i = 1; i <= peoples.Count; i++)
+            while (circle.Count != 0)
             {
-                peoples.Remove(peoples[1]);
-                Console.WriteLine("Удалён {0}", peoples[1]);
-                Console.ReadKey();
-                foreach(int k in peoples)
+                foreach (int k in circle)
                 {
                     Console.WriteLine(k);
-                    Console.ReadKey();
                 }
+
+                Console.WriteLine(Environment.NewLine + "Осталось {0} человек", circle.Count);
+                Console.WriteLine();
+                circle.Remove(current.Next ?? circle.First);
+                current = current.Next ?? circle.First;
             }
-
-
-
         }
     }
+
+
 }
