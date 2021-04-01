@@ -12,7 +12,6 @@ namespace Task_3._1._2
             text.GetInfo();
         }
     }
-
     class TextAnalysis
     {
         string Text;
@@ -42,11 +41,9 @@ namespace Task_3._1._2
                 }
             }
         }
-
         public void GetInfo()
         {
             var sortedDict = from entry in WordsDict orderby entry.Value descending select entry;
-
             Console.WriteLine(Environment.NewLine + "Информация о тексте" + Environment.NewLine);
             Console.WriteLine("Текст: {0}", Text);
             Console.WriteLine("Количество слов в тексте: {0}", Words.Length);
@@ -56,10 +53,6 @@ namespace Task_3._1._2
             {
                 Console.WriteLine(word);
             }
-
         }
-
-
-
     }
 }
