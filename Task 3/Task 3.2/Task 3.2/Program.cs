@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Task_3._2
 {
@@ -8,19 +10,29 @@ namespace Task_3._2
         static void Main(string[] args)
         {
             DynamicArray<int> newD = new DynamicArray<int>();
-            //newD.Add(1);
+            newD.Add(5);
+            newD.Add(10);
+            newD.GetLenght();
+            //List<int> numbers = new List<int>() { 1, 2, 3, 45 };
+            //newD.AddRange(numbers);
+
+            foreach (var i in newD)
+            {
+                Console.WriteLine(i);
+            }
         }
     }
 
-    class DynamicArray<T>
+    class DynamicArray<T> : IEnumerable<T>, IEnumerable, ICloneable
     {
-        public T[] array;
-        public int ArrayCapacity;
-        public int count = 1;
+        private T[] array;
+        private static int ArrayCapacity;
+        private int count = 0;
+
         public DynamicArray()
         {
             ArrayCapacity = 8;
-            array = new T[8];
+            array = new T[count];
         }
 
         public DynamicArray(int ArrayCapacity)
@@ -30,40 +42,106 @@ namespace Task_3._2
             array = new T[ArrayCapacity];
         }
 
-        //public DynamicArray(IEnumerable<T>) ----------- 3
-        //{
-
-        //}
-
-        public void Add (T element)
+        public DynamicArray(IEnumerable<T> SomeCollecton)
         {
-            array[count] = element;
-            count++;
+            array = SomeCollecton.ToArray();
         }
 
-        public IEnumerable<T> AddRange()
+        public void Add(T element)
         {
-            return null;
+            ExpansionArray();
+            array[count++] = element;
         }
 
-        public void Remove()
+        public void AddRange(IEnumerable<T> SomeCollection) // Не работает
         {
-
+            ExpansionArray();
+            var result = SomeCollection.Union(array);
+            //array = result; Добавить
         }
 
-        public int Lenght => array.Length;
-        public int Capacity
+        public void RemoveAt(int indexOfElement)
+        {
+            int translation = indexOfElement + 1;
+            if (translation < count)
+            {
+                Array.Copy(array, translation, array, indexOfElement, count - translation);
+            }
+            count--;
+        }
+
+        public bool Remove(T element)
+        {
+            for (int i = 0; i < count; i++)
+            {
+                if (array[i].Equals(element))
+                {
+                    RemoveAt(i);
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        private void ExpansionArray()
+        {
+            int newCapacity = Capacity == 0 ? 4 : Capacity * 2;
+            T[] newArray = new T[newCapacity];
+
+            for (int i = 0; i < array.Length; i++)
+                newArray[i] = array[i];
+
+            array = newArray;
+        }
+
+        public void Insert(int indexOfElement, T element)
+        {
+            if (array.Length == count)
+            {
+                ExpansionArray();
+            }
+
+            for (var i = count - 1; i > indexOfElement; i--)
+            {
+                array[i] = array[i - 1];
+            }
+            array[indexOfElement] = element;
+        }
+
+        public void GetLenght()
+        {
+            Console.WriteLine("Длина массива: " + array.Length + Environment.NewLine);
+        }
+
+        public T this [int index]  // Индексатор
         {
             get
             {
-                
-                return ArrayCapacity;     
+                return array[index];
             }
 
-            private set
+            set
             {
-                Capacity = ArrayCapacity;
+                array[index] = value;
             }
+        }
+        public int Length => array.Count(); 
+
+        private int Capacity => ArrayCapacity;
+
+        public IEnumerator<T> GetEnumerator()
+        {
+            return ((IEnumerable<T>)array).GetEnumerator();
+        }
+
+        System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
+        {
+            return array.GetEnumerator();
+        }
+
+        public object Clone()
+        {
+            return array.Clone();
         }
     }
 }
