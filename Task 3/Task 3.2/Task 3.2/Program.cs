@@ -22,7 +22,6 @@ namespace Task_3._2
             }
         }
     }
-
     class DynamicArray<T> : IEnumerable<T>, IEnumerable, ICloneable
     {
         private T[] array;
@@ -53,13 +52,15 @@ namespace Task_3._2
             array[count++] = element;
         }
 
-        public void AddRange(IEnumerable<T> SomeCollection) // Не работает
+        public void AddRange(IEnumerable<T> SomeCollection)
         {
             ExpansionArray();
             var result = SomeCollection.Union(array);
-            //array = result; Добавить
+            foreach (T i in SomeCollection)
+            {
+                Add(i);
+            }
         }
-
         public void RemoveAt(int indexOfElement)
         {
             int translation = indexOfElement + 1;
@@ -82,7 +83,6 @@ namespace Task_3._2
             }
             return false;
         }
-
         private void ExpansionArray()
         {
             int newCapacity = Capacity == 0 ? 4 : Capacity * 2;
@@ -93,7 +93,6 @@ namespace Task_3._2
 
             array = newArray;
         }
-
         public void Insert(int indexOfElement, T element)
         {
             if (array.Length == count)
@@ -113,7 +112,7 @@ namespace Task_3._2
             Console.WriteLine("Длина массива: " + array.Length + Environment.NewLine);
         }
 
-        public T this [int index]  // Индексатор
+        public T this[int index]  
         {
             get
             {
@@ -125,7 +124,7 @@ namespace Task_3._2
                 array[index] = value;
             }
         }
-        public int Length => array.Count(); 
+        public int Length => array.Count();
 
         private int Capacity => ArrayCapacity;
 
