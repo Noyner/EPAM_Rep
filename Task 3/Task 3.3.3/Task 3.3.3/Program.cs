@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
 
 namespace Task_3._3._3
 {
@@ -7,19 +9,10 @@ namespace Task_3._3._3
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Клиент приходит в пиццерию");
-            Pizzeria pizzeria = new Pizzeria();
+            Desktop desktop = new Desktop();
+            desktop.Menu();
+        }    
 
-            Client client = new Client("Sam");
-            pizzeria.ChoosePizza();
-            pizzeria.AddOrder(client);
-
-            Client client2 = new Client("John");
-            pizzeria.ChoosePizza();
-            pizzeria.AddOrder(client2);
-
-            pizzeria.GivePizza(client);
-        }
     }
 
     class Client
@@ -39,9 +32,20 @@ namespace Task_3._3._3
 
         public void AddOrder(Client client)
         {
-            OrderId += 1; ;
+            OrderId += 1;
             orders.Enqueue(OrderId);
-            Console.WriteLine("Здравствуйте {0}, номер вашего заказа - {1}. Пожалуйста, ожидайте", client.Name, OrderId);
+            Console.WriteLine("{0}, номер вашего заказа - {1}. Пожалуйста, ожидайте", client.Name, OrderId);
+
+            //if (orders != null)
+            //{
+            //    ThreadStart ts = new ThreadStart();
+            //    ts.GoThread();
+            //}
+        }
+
+        public void DeleteOrder()
+        {
+            orders.Dequeue();
         }
         public void ChoosePizza()
         {
@@ -68,9 +72,27 @@ namespace Task_3._3._3
             }
         }
 
-        public void GivePizza(Client client)
+        public void GivePizza()
         {
-            Console.WriteLine(Environment.NewLine + "{0}, ваша пицца готова. Заберите заказ", client.Name);
+            if (orders == null)
+            {
+                Console.WriteLine("Нет активных заказов");
+            }
+            else
+            {
+                Console.WriteLine(Environment.NewLine + "Заказ под номером {0} готов. Заберите заказ", orders.First());
+                DeleteOrder();
+            }
+        }
+
+        public void ShowOrders()
+        {
+            Console.WriteLine("Заказов в работе: {0}" + Environment.NewLine, orders.Count);
+
+            foreach (int i in orders)
+            {
+                Console.WriteLine("Заказ под номером {0}", i);
+            }
         }
     }
 
@@ -112,4 +134,59 @@ namespace Task_3._3._3
             return 70;
         }
     }
+
+    class Desktop
+    {
+        Pizzeria pizzeria = new Pizzeria();
+        public void Menu()
+        {
+            bool swBool = true;
+            do
+            {
+                Console.WriteLine("Пиццерия Pizza-Super-Puper приветствует вас!" + Environment.NewLine + Environment.NewLine + "Выберите действие: \n1. Сделать заказ \n2. Заказы в работе \n3. Забрать заказ \n0. Выход ");
+                string enter = Console.ReadLine();
+                switch (enter)
+                {
+                    case "1":
+                        Console.WriteLine(Environment.NewLine + "Как к вам обращаться?");
+                        Client client = new Client(Console.ReadLine());
+                        pizzeria.ChoosePizza();
+                        pizzeria.AddOrder(client);
+                        break;
+                    case "2":
+                        pizzeria.ShowOrders();
+                        break;
+                    case "3":
+                        pizzeria.GivePizza();
+                        break;
+                    case "0":
+                        Console.WriteLine("Спасибо, что пришли!");
+                        swBool = false;
+                        break;
+                }
+
+            }
+            while (swBool);
+
+        }
+    }
+
+    class ThreadStart
+    {
+        public void GoThread()
+        {
+            Thread thread = new Thread(Metod);
+            thread.Start(1500);
+            thread.Join();
+        }
+
+    static void Metod(object timeout)
+        {
+            Thread.Sleep((int)timeout);
+            Pizzeria pizzeria = new Pizzeria();
+            pizzeria.GivePizza();
+        }
+    }
 }
+
+

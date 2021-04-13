@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 
-
 namespace Task_3._3._2
 {
     class Program
@@ -13,7 +12,6 @@ namespace Task_3._3._2
             str.DefineLanguage();
         }
     }
-
     public static class SuperString
     {
         public static void DefineLanguage(this string str)
