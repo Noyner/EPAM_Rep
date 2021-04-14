@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading;
+using System.Threading.Tasks;
 
 namespace Task_3._3._3
 {
@@ -11,8 +11,7 @@ namespace Task_3._3._3
         {
             Desktop desktop = new Desktop();
             desktop.Menu();
-        }    
-
+        }  
     }
 
     class Client
@@ -26,24 +25,19 @@ namespace Task_3._3._3
 
     class Pizzeria
     {
-        public int OrderId { get; set; }
+        public static int OrderId { get; set; }
 
-        Queue<int> orders = new Queue<int>();
+        static Queue<int> orders = new Queue<int>();
 
         public void AddOrder(Client client)
         {
             OrderId += 1;
             orders.Enqueue(OrderId);
             Console.WriteLine("{0}, номер вашего заказа - {1}. Пожалуйста, ожидайте", client.Name, OrderId);
-
-            //if (orders != null)
-            //{
-            //    ThreadStart ts = new ThreadStart();
-            //    ts.GoThread();
-            //}
+            CreatePizza();
         }
 
-        public void DeleteOrder()
+        public static void DeleteOrder()
         {
             orders.Dequeue();
         }
@@ -72,17 +66,18 @@ namespace Task_3._3._3
             }
         }
 
+        public static async void CreatePizza()
+        {
+            var task = new Task(() => { Console.WriteLine(Environment.NewLine + "Заказ под номером {0} готов. Заберите заказ", orders.Last()); });
+            task.Wait(TimeSpan.FromSeconds(5));
+            task.Start();
+            await task;
+        }
+
         public void GivePizza()
         {
-            if (orders == null)
-            {
-                Console.WriteLine("Нет активных заказов");
-            }
-            else
-            {
-                Console.WriteLine(Environment.NewLine + "Заказ под номером {0} готов. Заберите заказ", orders.First());
-                DeleteOrder();
-            }
+            Console.WriteLine("Клиент забрал заказ под номером {0}", orders.First());
+            DeleteOrder();
         }
 
         public void ShowOrders()
@@ -143,7 +138,7 @@ namespace Task_3._3._3
             bool swBool = true;
             do
             {
-                Console.WriteLine("Пиццерия Pizza-Super-Puper приветствует вас!" + Environment.NewLine + Environment.NewLine + "Выберите действие: \n1. Сделать заказ \n2. Заказы в работе \n3. Забрать заказ \n0. Выход ");
+                Console.WriteLine(Environment.NewLine + "Пиццерия Pizza-Super-Puper приветствует вас!" + Environment.NewLine + Environment.NewLine + "Выберите действие: \n1. Сделать заказ \n2. Заказы в работе \n3. Забрать заказ \n0. Выход ");
                 string enter = Console.ReadLine();
                 switch (enter)
                 {
@@ -167,24 +162,6 @@ namespace Task_3._3._3
 
             }
             while (swBool);
-
-        }
-    }
-
-    class ThreadStart
-    {
-        public void GoThread()
-        {
-            Thread thread = new Thread(Metod);
-            thread.Start(1500);
-            thread.Join();
-        }
-
-    static void Metod(object timeout)
-        {
-            Thread.Sleep((int)timeout);
-            Pizzeria pizzeria = new Pizzeria();
-            pizzeria.GivePizza();
         }
     }
 }
