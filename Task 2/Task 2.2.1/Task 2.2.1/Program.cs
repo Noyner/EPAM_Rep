@@ -8,7 +8,7 @@ namespace GameDev
     {
         public static void Main(string[] args)
         {
-            inputManager im = new inputManager();
+            InputManager im = new InputManager();
             Player p = new Player();
             Field f = new Field();
             im.ListenAsync();
@@ -97,10 +97,10 @@ namespace GameDev
                 Player.heart--; 
             }
 
-            if (Player.heart <= 0)
+            if (Player.heart == 0)
             {
                 Console.WriteLine(Environment.NewLine + "ТЫ МЁРТВ");
-                Console.ReadKey();
+                Environment.Exit(0);
             }
             field[x, y] = Options.HERO_SYMBOL;
             field[p.X, p.Y] = Options.EMPTY_CELL;
@@ -131,14 +131,14 @@ namespace GameDev
             Random rand = new Random();
 
             int[] bonuses_x = Enumerable
-            .Repeat(0, bonus)
-            .Select(i => rand.Next(Min, Max_x))
-            .ToArray();
+                .Repeat(0, bonus)
+                .Select(i => rand.Next(Min, Max_x))
+                .ToArray();
 
             int[] bonuses_y = Enumerable
-            .Repeat(0, bonus)
-            .Select(i => rand.Next(Min, Max_y))
-            .ToArray();
+                .Repeat(0, bonus)
+                .Select(i => rand.Next(Min, Max_y))
+                .ToArray();
 
             for (int i = 0; i < bonus; i++)
                 field[bonuses_x[i], bonuses_y[i]] = Options.BONUS;
@@ -153,14 +153,14 @@ namespace GameDev
             Random rand = new Random();
 
             int[] obstruction_x = Enumerable
-            .Repeat(0, obstruction)
-            .Select(i => rand.Next(Min, Max_x))
-            .ToArray();
+                .Repeat(0, obstruction)
+                .Select(i => rand.Next(Min, Max_x))
+                .ToArray();
 
             int[] obstruction_y = Enumerable
-            .Repeat(0, obstruction)
-            .Select(i => rand.Next(Min, Max_y))
-            .ToArray();
+                .Repeat(0, obstruction)
+                .Select(i => rand.Next(Min, Max_y))
+                .ToArray();
 
             for (int i = 0; i < obstruction; i++)
                 field[obstruction_x[i], obstruction_y[i]] = Options.OBSTRUCTION;
@@ -171,7 +171,7 @@ namespace GameDev
         public static int collected = 0;
     }
 
-    class inputManager
+    class InputManager
     {
         public Player player;
         public Field field;

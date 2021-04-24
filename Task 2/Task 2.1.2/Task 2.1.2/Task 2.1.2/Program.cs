@@ -7,7 +7,7 @@ namespace Task_2._1._2
     {
         static void Main(string[] args)
         {
-            Manager.start();
+            Manager.Start();
         }
     }
     abstract class Shape
@@ -288,49 +288,49 @@ namespace Task_2._1._2
 
     public class Manager
     {
-        static Dictionary<string, Desktop> users = new Dictionary<string, Desktop>();
+        static Dictionary<string, Desktop> usersByName = new Dictionary<string, Desktop>();
         static string currentUser;
 
         public static void AddUser()
         {
             Console.WriteLine("Введите ваше имя: ");
             string name = Console.ReadLine();
-            if (users.ContainsKey(name))
+            if (usersByName.ContainsKey(name))
                 Console.WriteLine("Такой пользователь уже существует");
             else
             {
-                users[name] = new Desktop();
+                usersByName[name] = new Desktop();
                 currentUser = name;
             }
         }
 
         public static void AddUser(string name)
         {
-            if (users.ContainsKey(name))
+            if (usersByName.ContainsKey(name))
                 throw new Exception ("Такой пользовател уже существует");
             else
             {
-                users[name] = new Desktop();
+                usersByName[name] = new Desktop();
                 currentUser = name;
             }
         }
         public static void SwitchUser(string name)
         {
-            if (!users.ContainsKey(name))
+            if (!usersByName.ContainsKey(name))
                 AddUser(name);
 
             currentUser = name;
         }
 
-        public static void start()
+        public static void Start()
         {
             Manager.AddUser();
-            users[currentUser].Menu();
+            usersByName[currentUser].Menu();
         }
 
         public static void GetCurrent()
         {
-            users[currentUser].Menu();
+            usersByName[currentUser].Menu();
         }
     }
 }

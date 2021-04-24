@@ -1,6 +1,5 @@
-﻿using System;
-using System.Text;
-using MyLib;
+﻿using MyLib;
+using System;
 
 namespace Task_2
 {
@@ -20,10 +19,6 @@ namespace Task_2
         {
             str.ToCharArray();
             Console.WriteLine(str);
-            foreach (char k in str)
-            {
-                Console.WriteLine(k);
-            }
         }
 
         public void ToStr()
@@ -61,7 +56,7 @@ namespace Task_2
         }
         public static bool operator ==(NewStr s1, NewStr s2)
         {
-            return object.Equals(s1.str, s2.str);
+            return ValueType.Equals(s1.str, s2.str);
         }
         public static bool operator !=(NewStr s1, NewStr s2)
         {
@@ -81,7 +76,6 @@ namespace Task_2
         {
             return base.GetHashCode();
         }
-        // Индексатор 
         public NewStr()
         {
             data = new NewStr[5];
