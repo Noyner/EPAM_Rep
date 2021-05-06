@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Task_3._1._1
+namespace Task_3._3._1._1
 {
     class Program
     {
@@ -13,9 +13,9 @@ namespace Task_3._1._1
 
             int[] myArray = new int[N];
 
-            for (int i=0; i<N; i++)
+            for (int i = 0; i < N; i++)
             {
-                myArray[i] = 1+i;
+                myArray[i] = 1 + i;
             }
 
             LinkedList<int> circle = new LinkedList<int>(myArray);
@@ -35,6 +35,4 @@ namespace Task_3._1._1
             }
         }
     }
-
-
 }
