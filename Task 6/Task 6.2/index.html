@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <title>Registration form</title>
+    <style type="text/css">
+    .form{
+        background-color: #0191d0;
+        width: 360px;
+        height: 300px;
+        padding: 20px;
+        border: 3px solid darkblue;
+        color:white;
+        font: 16px sans-serif;
+    }
+    .email{
+        width: 300px;
+    }
+    .pass{
+        width: 137px;
+    }
+    label{
+        display: inline-block;
+        margin: 6px;
+    }
+    .button{
+        background:rgb(250, 202, 80);
+        margin-left: 6px;
+        width: 80px;
+        height: 25px;
+        border: 0px;
+    }
+    </style>
+</head>
+<body>
+    <form action="file.php" class="form">
+        <h2>Регистрация</h2>
+        <hr>
+        <label><p>E-mail</p><input type="email" class="email"></label>
+        <label><p>Пароль</p><input type="password" class="pass"></label>
+        <label><p>Ещё раз</p><input type="password" class="pass"></label>
+        <br><br>
+        <input type="submit" value="Отправить" class="button">
+       </form> 
+</body>
+</html>
