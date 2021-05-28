@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <title>Three Column Block</title>
+    <style type="text/css">
+        body{
+            background-color: rgb(78,99,121);
+        }
+        .block{
+            background-color:white;
+            overflow: hidden;
+            margin: auto;
+            width: 604px;
+            height: 200px;
+            box-shadow: 0 20px 40px rgb(53, 52, 52);
+            border-radius: 5px;
+        }
+        .element{
+            float:left;
+            text-align: center;
+            border-right: 1px solid rgb(189, 185, 185);
+            width: 200px;
+            margin-top:10px;
+        }
+        .virtual{
+            background-image:url(images/hosting.png);
+            width: 55px;;
+            height: 55px;
+            margin:auto;
+        }
+        .cloud{
+            background-image: url(images/storage.png) ;
+            width: 55px;;
+            height: 55px;
+            margin:auto;
+        }
+        .dedicated{
+            background-image: url(images/database.png);
+            width:55px;
+            height: 55px;
+            margin:auto;
+        }
+        .button{
+            background-color:rgb(245, 99, 50);
+            color: white;
+            
+            padding:5px;
+            border-radius: 3px;
+        }
+        h3{
+            color:rgb(245, 99, 50);
+            margin-right: 3px;
+            margin-left:3px
+        }
+    </style>
+</head>
+<body>
+<div class="block">
+    <div class="element">
+        <div class="virtual"></div>
+        <h3>Виртуальный хостинг</h3>
+        <p>3.95$ в месяц</p>
+        <a class="button">Подробнее</a>
+    </div>
+    <div class="element">
+        <div class="cloud"></div>
+        <h3>Облачный хостинг</h3>
+        <p>68.95$ в месяц</p>
+        <a class="button">Подробнее</a>
+    </div>
+    <div class="element">
+        <div class="dedicated"></div>
+        <h3>Выделенный сервер</h3>
+        <p>217.95$ в месяц</p>
+        <a class="button">Подробнее</a>
+    </div>
+</div>
+</body>
+</html>
