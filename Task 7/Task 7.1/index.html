@@ -3,13 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <title>Char Remover</title>
-    <style type="text/css">
-   
-    </style>
 </head>
 <body>
     <script>
-        alert( 'Привет, мир!' );
-      </script>
+        let baseString = "У попа была собака";
+        let separator = ["?", "!", ":", ";", ",", ".", " "];
+        let letters = [];
+        let words = [];
+        let position = 0;
+        var result;
+
+        let newString = baseString.split('');
+        newString.forEach(function(letter, i, newString){
+            if(separator.indexOf(letter) !=-1){
+                    words.push(baseString.substr(position, i-position));
+                    position=i+1;
+            }
+        });
+        words.push(baseString.substr(position));
+
+        words.forEach(function(word){
+            word.split('').forEach(function(letter,i){
+                if(!letters[letter] && word.indexOf(letter, i+1) !=-1){
+                    letters[letter]=1;
+                }
+            });
+        });
+        result=newString.filter(function(item){
+            return !letters[item];
+        });
+    </script>
+
+    <h3>Char Remover</h3>
+    <p id="originalString"></p>
+    <p id="showResult"></p>
+    
+    <script>
+        document.getElementById('originalString').innerHTML = baseString;
+        document.getElementById('showResult').innerHTML = result;
+    </script>
+    
 </body>
 </html>
