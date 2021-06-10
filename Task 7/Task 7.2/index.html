@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Math Calculator</title>
+</head>
+<body>
+<script>
+"use strict";
+    const string = "5.5+4.5*10 - 50/10=";
+
+    function calculate(string){
+        var result = 0;
+        var matchArray = [];
+        var regexList = /\-?\d+(\.\d+)?|[\+,\-,\*,\/,\=]{1}/ig;
+        matchArray=string.match(regexList);
+
+        if(matchArray[0]*1+"" !=="NaN"){
+            result+=matchArray[0]*1;
+        }
+
+        for(var i=0;i<matchArray.length; i++){
+            switch(matchArray[i]){
+                case "+": result += matchArray[i+1]*1; break;
+                case "-": result -= matchArray[i+1]*1; break;
+                case "*": result *= matchArray[i+1]*1; break;
+                case "/": result /= matchArray[i+1]*1; break;
+                case "=": break;
+                default: continue; break;
+            }
+        }
+        return result;
+    }
+
+    var result = calculate(string);
+    console.log("Пример: " + string); 
+    console.log(result);
+    
+</script>    
+</body>
+</html>
