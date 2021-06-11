@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Mini Crud</title>
+</head>
+<body>
+<script>
+    var arr = [];
+    class Service {
+        add(object){
+            object.id = String(arr.length);
+            arr.push(object);
+        }
+
+        getById(id){
+            const elem = arr.find((el) => el.id === id);
+            if(elem){
+                console.log("Найденный по ID элемент: ")
+                console.log(elem);
+            } else {
+                console.log(null);
+            }
+        }
+
+        getAll(arr){
+            console.log("Массив объектов: ")
+            console.log(arr);
+        }
+
+        deleteById(id){
+            const elem = arr.find((el) => el.id === id);
+            if(elem){
+                arr.splice(id)
+                console.log("Удалённый элемент: ")
+                console.log(elem);
+            } else {
+                console.log("Такого объекта нет в массиве");
+            }
+        }
+
+        updateById(id, object){
+            const elem = arr.find((el) => el.id === id);
+            if(elem){
+                for(var i = 0; i<arr.length;i++){
+                    console.log(elem[key]);
+                    console.log(object[key]);
+                }
+            } else {
+                console.log("Такого объекта нет в массиве");
+            }
+        }
+        replaceById(id, object){
+            const elem = arr.find((el) => el.id === id);
+            if(elem){
+                for(var i = 0; i<arr.length;i++){
+                    arr.splice(i,1,object);
+                }
+            } else {
+                console.log("Такого объекта нет в массиве");
+            }
+        }
+
+    }
+
+    var storage = new Service();
+    storage.add({name: "Kurt", age : 27}); 
+    storage.add({name: "Bart", age : 13});
+    storage.getAll(arr);
+    storage.getById('0');
+    storage.deleteById("1");
+    storage.getAll(arr);
+    //storage.updateById('0', {name: "Homer"});
+    storage.replaceById('0', {style: "Very cool style"})
+    storage.getAll(arr);
+
+</script>    
+</body>
+</html>
