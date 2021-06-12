@@ -43,8 +43,7 @@
             const elem = arr.find((el) => el.id === id);
             if(elem){
                 for(var i = 0; i<arr.length;i++){
-                    console.log(elem[key]);
-                    console.log(object[key]);
+                    Object.assign(elem, object);
                 }
             } else {
                 console.log("Такого объекта нет в массиве");
@@ -66,13 +65,13 @@
     var storage = new Service();
     storage.add({name: "Kurt", age : 27}); 
     storage.add({name: "Bart", age : 13});
+    storage.add({name: "Rick", age : 47});
     storage.getAll(arr);
     storage.getById('0');
-    storage.deleteById("1");
+    storage.deleteById("2");
     storage.getAll(arr);
-    //storage.updateById('0', {name: "Homer"});
-    storage.replaceById('0', {style: "Very cool style"})
-    storage.getAll(arr);
+    //storage.updateById('1', {name: "Homer"});
+    //storage.replaceById('0', {style: "Very cool style"})
 
 </script>    
 </body>
