@@ -47,7 +47,6 @@ namespace Epam.Task8._1.DAL.UserJsonDAO
                 throw new FileNotFoundException(
                     string.Format("File with name {0} at path {1} isn`t created!",
                     id, JSON_FILES_PATH));
-
             }
 
             User user = JsonConvert.DeserializeObject<User>(File.ReadAllText(GetUserById(id)));

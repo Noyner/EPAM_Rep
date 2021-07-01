@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Epam.Task8._1.Common.Entities
 {
@@ -10,6 +11,7 @@ namespace Epam.Task8._1.Common.Entities
             Name = name;
             DateOfBirth = dateOfBirth;
             Age = age;
+            Awards = new List<Award>();
         }
 
         public Guid ID { get; private set; }
@@ -29,5 +31,13 @@ namespace Epam.Task8._1.Common.Entities
             DateOfBirth = newDateOfBirth;
             Age = newAge;
         }
+
+        public void GetAward(Award award)
+        {
+            Awards.Add(award);
+        }
+
+        public ICollection<Award> Awards { get; set; }
+
     }
 }

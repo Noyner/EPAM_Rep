@@ -8,5 +8,7 @@ namespace Epam.Users.BLL.Interfaces
         void AddAward(Award award);
 
         void AllAward();
+
+        void GiveAward(Guid userId, Guid awardId);
     }
 }

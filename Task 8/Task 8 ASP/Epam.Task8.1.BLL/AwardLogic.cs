@@ -24,5 +24,10 @@ namespace Epam.Task8._1.BLL
             _awardDAO.AllAward();
         }
 
+        public void GiveAward(Guid userId, Guid awardId)
+        {
+            _awardDAO.GiveAward(userId, awardId);
+        }
+
     }
 }

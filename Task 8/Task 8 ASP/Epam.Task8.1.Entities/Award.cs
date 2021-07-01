@@ -12,10 +12,18 @@ namespace Epam.Task8._1.Common.Entities
         {
             ID = id;
             Title = title;
+            Users = new List<User>();
         }
 
         public Guid ID { get; private set; }
 
         public string Title { get; set; }
+
+        public void GiveAward(User user)
+        {
+            Users.Add(user);
+        }
+
+        public ICollection<User> Users { get; set; }
     }
 }
