@@ -1,23 +1,33 @@
 ﻿using System;
 
-namespace Epam.Task8._1.Entities
+namespace Epam.Task8._1.Common.Entities
 {
     public class User
     {
-        public User(string name, DateTime dateOfBirth, int age)
+        public User(string name, DateTime dateOfBirth, int age, Guid id)
         {
-            ID = Guid.NewGuid();
+            ID = id;
             Name = name;
             DateOfBirth = dateOfBirth;
             Age = age;
         }
 
-        public Guid ID { get; }
+        public Guid ID { get; private set; }
 
         public string Name { get; set; }
 
         public DateTime DateOfBirth { get; set; }
 
         public int Age { get; set; }
+
+        public void Edit(string newName, DateTime newDateOfBirth, int newAge)
+        {
+            if (newName == null)
+                throw new ArgumentNullException("str", "Name cannot be null");
+
+            Name = newName;
+            DateOfBirth = newDateOfBirth;
+            Age = newAge;
+        }
     }
 }

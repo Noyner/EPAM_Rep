@@ -8,6 +8,8 @@
   <ItemGroup>
     <ProjectReference Include="..\Epam.Task8.1.DAL\Epam.Task8.1.JsonDAL.csproj" />
     <ProjectReference Include="..\Epam.Task8.1.Entities\Epam.Task8.1.Entities.csproj" />
+    <ProjectReference Include="..\Epam.User.BLL.Interfaces\Epam.Users.BLL.Interfaces.csproj" />
+    <ProjectReference Include="..\Epam.User.Dal.Interfaces\Epam.UsersDAL.Interfaces.csproj" />
   </ItemGroup>
 
 </Project>

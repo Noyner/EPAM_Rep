@@ -2,15 +2,14 @@
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
-    <RootNamespace>Epam.Task8._1.DAL</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
-  </ItemGroup>
-
-  <ItemGroup>
+    <ProjectReference Include="..\Epam.Task8.1.BLL\Epam.Task8.1.BLL.csproj" />
+    <ProjectReference Include="..\Epam.Task8.1.DAL\Epam.Task8.1.JsonDAL.csproj" />
     <ProjectReference Include="..\Epam.Task8.1.Entities\Epam.Task8.1.Entities.csproj" />
+    <ProjectReference Include="..\Epam.Task8.SqlDAL\Epam.Task8.SqlDAL.csproj" />
+    <ProjectReference Include="..\Epam.User.BLL.Interfaces\Epam.Users.BLL.Interfaces.csproj" />
     <ProjectReference Include="..\Epam.User.Dal.Interfaces\Epam.UsersDAL.Interfaces.csproj" />
   </ItemGroup>
 

@@ -9,6 +9,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Epam.Task8.1.BLL\Epam.Task8.1.BLL.csproj" />
     <ProjectReference Include="..\Epam.Task8.1.Entities\Epam.Task8.1.Entities.csproj" />
+    <ProjectReference Include="..\Epam.User.Dependences\Epam.Users.Dependences.csproj" />
   </ItemGroup>
 
 </Project>
