@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <RootNamespace>Epam.Task8._1.BLL</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Epam.Task8.1.DAL\Epam.Task8.2.JsonDAL.csproj" />
+    <ProjectReference Include="..\Epam.Task8.1.Entities\Epam.Task8.2.Entities.csproj" />
+    <ProjectReference Include="..\Epam.User.BLL.Interfaces\Epam.Users.BLL.Interfaces.csproj" />
+    <ProjectReference Include="..\Epam.User.Dal.Interfaces\Epam.UsersDAL.Interfaces.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net5.0</TargetFramework>
+    <RootNamespace>Epam.Task8._1.ConsolePL</RootNamespace>
+    <StartupObject>Epam.Task8._2.PL.ConsolePL.ConsolePL</StartupObject>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Epam.Task8.1.BLL\Epam.Task8.2.BLL.csproj" />
+    <ProjectReference Include="..\Epam.Task8.1.Entities\Epam.Task8.2.Entities.csproj" />
+    <ProjectReference Include="..\Epam.User.Dependences\Epam.Users.Dependences.csproj" />
+  </ItemGroup>
+
+</Project>

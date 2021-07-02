@@ -1,14 +1,14 @@
-﻿using Epam.Task8._1.Common.Entities;
+﻿using Epam.Task8._2.Common.Entities;
 using Epam.UsersDAL.Interfaces;
 using Newtonsoft.Json;
 using System;
 using System.IO;
 
-namespace Epam.Task8._1.DAL.UserJsonDAO
+namespace Epam.Task8._2.DAL.UserJsonDAO
 {
     public class UserJsonDAO : IUserDAO
     {
-        public const string JSON_FILES_PATH = @"C:\Users\Sgt.Pepper\Desktop\Study\EPAM\EPAM_Rep\Task 8\Task 8 ASP\Files\";
+        public const string JSON_FILES_PATH = @"C:\Users\Sgt.Pepper\Desktop\Study\EPAM\EPAM_Rep\Task 8\Epam.Task 8.2\Files\";
         public void AddUser(User user)
         {
             string json = JsonConvert.SerializeObject(user);
