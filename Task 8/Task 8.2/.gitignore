@@ -1,0 +1,58 @@
+#ignore files for web project - codingjedi\code_related\code\frontend\web
+
+code_related/code/frontend/common/javascripts/vendor/jquery/jquery*.js
+code_related/code/frontend/common/javascripts/vendor/jquery/jquery*.map
+code_related/code/frontend/common/javascripts/vendor/bootstrap/bootstrap*.map
+code_related/code/frontend/common/javascripts/vendor/bootstrap/bootstrap*.js
+code_related/code/frontend/common/javascripts/vendor/bootstrap/popper*.js
+code_related/code/frontend/common/css/vendor/bootstrap/bootstrap*.map
+code_related/code/frontend/common/css/vendor/bootstrap/bootstrap*.css
+code_related/code/frontend/common/javascripts/vendor/popper/umd/popper*.js
+code_related/code/frontend/common/javascripts/vendor/popper/umd/popper*.map
+code_related/code/frontend/web/ui/.gitignore
+code_related/code/frontend/web/ui/.editorconfig
+logs
+project
+target
+tmp
+.history
+dist
+.idea
+*.iml
+out
+.idea_modules
+.classpath
+.project
+RUNNING_PID
+.settings
+public
+dist-server
+out-tsc
+node_modules
+
+.c9
+*.launch
+*.sublime-workspace
+
+# misc
+.sass-cache
+connect.lock
+coverage
+libpeerconnection.log
+npm-debug.log
+testem.log
+typings
+
+# e2e
+code_related/code/frontend/web/ui/e2e/*.js
+code_related/code/frontend/web/ui/e2e/*.map
+
+# System Files
+.DS_Store
+Thumbs.db
+
+#MS temp generated files for xls, doc etc.
+~$*
+
+#include these files though
+!code_relate/code/frontend/web/.idea/workspace.xml
