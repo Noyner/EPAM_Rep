@@ -2,6 +2,7 @@
 using Epam.UsersAwards.Entities;
 using Epam.UsersAwardsDAL.Interfaces;
 using Newtonsoft.Json;
+using System.Collections.Generic;
 using System.IO;
 
 
@@ -27,18 +28,20 @@ namespace Epam.UsersAwards.JsonDAL
                 throw new FileNotFoundException(
                     string.Format("User with ID {} at path {1} isn`t created", id, JSON_FILES_PATH));
             }
-
         }
 
-        public void AllUsers()
+        public IList<User> AllUsers()
         {
-            Console.WriteLine("User list: " + Environment.NewLine);
+            List<User> userList = new List<User>();
+
+            
             string[] files = Directory.GetFiles(JSON_FILES_PATH, "*.json");
             foreach (string filename in files)
             {
                 var jsonFull = File.ReadAllText(filename);
-                Console.WriteLine(jsonFull);
+                userList.Add(JsonConvert.DeserializeObject<User>(jsonFull));
             }
+            return userList;
         }
 
         public void EditUser(Guid id, string newName, DateTime newDateTimeOfBirth, int newAge)

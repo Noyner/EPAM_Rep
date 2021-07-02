@@ -1,0 +1,27 @@
+﻿@using Epam.UsersAwards.JsonDAL;
+@using Epam.UsersAwards.Dependences;
+@using Epam.UsersAwards.Entities;
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+</head>
+<body>
+    @{
+        var bll = DependencyResolver.Instance.UserLogic;
+        bll.AllUser();
+
+        <ul>
+            @foreach (var user in bll.AllUser())
+            {
+                <li>
+                    @user.Name;
+                </li>
+            }
+        </ul>
+
+    }
+ 
+</body>
+</html>

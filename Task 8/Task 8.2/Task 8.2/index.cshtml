@@ -1,0 +1,30 @@
+﻿@using Epam.UsersAwards.Dependences;
+@using Epam.UsersAwards.Entities;
+@using System;
+@{
+
+    Layout = null;
+
+    var bll = DependencyResolver.Instance.UserLogic;
+    string pageName = "Users and Awards";
+    bll.AllUser();
+    
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>@pageName</title>
+</head>
+<body>
+    <script src="~/Scripts/jquery-3.6.0.js"></script>
+
+    <button id="allUsersBtn" type="button" class="btn btn-warning">All Award</button>
+
+    <script>
+        $('#allUsersBtn').click(function () {
+            location.href = '/UsersAndAwards';
+        })
+    </script>
+
+</body>
+</html>

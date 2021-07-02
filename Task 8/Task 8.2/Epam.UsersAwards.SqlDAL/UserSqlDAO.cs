@@ -1,6 +1,7 @@
 ﻿using System;
 using Epam.UsersAwards.Entities;
 using Epam.UsersAwardsDAL.Interfaces;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,9 +22,9 @@ namespace Epam.UsersAwards.SqlDAL
 
         }
 
-        public void AllUsers()
+        public IList<User> AllUsers()
         {
-
+            throw new NotImplementedException("0");
         }
 
         public void EditUser(Guid id, string newName, DateTime newDateTimeOfBirth, int newAge)

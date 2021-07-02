@@ -40,6 +40,20 @@ namespace Epam.UsersAwards.Entities
             Awards.Add(award);
         }
 
+        /*public override string ToString()
+        {
+            return $"{Name} {Age} {DateOfBirth} {ID}";
+        }*/
+
+        public override string ToString()
+        {
+            string str = $"User:\n{Name} {Age} {DateOfBirth} {ID}\nAwards:\n";
+            foreach (var aw in Awards)
+            {
+                str += "\t" + aw.ToString() + "\n";
+            }
+            return str;
+        }
         public ICollection<Award> Awards { get; set; }
     }
 }

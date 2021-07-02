@@ -2,6 +2,7 @@
 using Epam.UsersAwards.Entities;
 using Epam.UsersAwards.BLL.Interfaces;
 using Epam.UsersAwardsDAL.Interfaces;
+using System.Collections.Generic;
 
 namespace Epam.UsersAwards.BLL
 {
@@ -23,9 +24,9 @@ namespace Epam.UsersAwards.BLL
             _userDAO.DeleteUser(id);
         }
 
-        public void AllUser()
+        public IList<User> AllUser()
         {
-            _userDAO.AllUsers();
+            return _userDAO.AllUsers();
         }
 
         public void EditUser(Guid id, string newName, DateTime newDateTime, int newAge)

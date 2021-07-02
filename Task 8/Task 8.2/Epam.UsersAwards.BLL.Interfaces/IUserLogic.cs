@@ -1,5 +1,6 @@
 ﻿using System;
 using Epam.UsersAwards.Entities;
+using System.Collections.Generic;
 
 namespace Epam.UsersAwards.BLL.Interfaces
 {
@@ -9,7 +10,7 @@ namespace Epam.UsersAwards.BLL.Interfaces
 
         void RemoveUser(Guid id);
 
-        void AllUser();
+        IList <User> AllUser();
 
         void EditUser(Guid id, string newName, DateTime newDateTime, int newAge);
     }

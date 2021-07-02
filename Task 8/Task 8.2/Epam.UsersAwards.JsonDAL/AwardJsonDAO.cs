@@ -1,5 +1,6 @@
 ﻿using Epam.UsersAwards.Entities;
 using Epam.UsersAwardsDAL.Interfaces;
+using System.Collections.Generic;
 using Newtonsoft.Json;
 using System;
 using System.IO;
@@ -15,15 +16,17 @@ namespace Epam.UsersAwards.JsonDAL
             string json = JsonConvert.SerializeObject(award);
             File.WriteAllText(GetAwardById(award.ID), json);
         }
-        public void AllAward()
+        public IList <Award> AllAward()
         {
-            Console.WriteLine("Award list: " + Environment.NewLine);
+            List<Award> awardList = new List<Award>();
             string[] files = Directory.GetFiles(JSON_AWARDS_PATH, "*.json");
             foreach (string filename in files)
             {
                 var jsonFull = File.ReadAllText(filename);
-                Console.WriteLine(jsonFull);
+                awardList.Add(JsonConvert.DeserializeObject<Award>(jsonFull));
             }
+
+            return awardList;
         }
 
         public void GiveAward(Guid userId, Guid awardId)
@@ -52,9 +55,6 @@ namespace Epam.UsersAwards.JsonDAL
             {
                 ReferenceLoopHandling = ReferenceLoopHandling.Ignore
             }));
-
-            //File.WriteAllText(GetUserById(userId), JsonConvert.SerializeObject(userId));
-            //File.WriteAllText(GetAwardById(awardId), JsonConvert.SerializeObject(awardId));
         }
 
         private string GetAwardById(Guid id) => JSON_AWARDS_PATH + id + ".json";
