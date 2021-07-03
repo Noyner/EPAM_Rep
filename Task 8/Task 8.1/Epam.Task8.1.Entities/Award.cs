@@ -24,6 +24,11 @@ namespace Epam.Task8._1.Common.Entities
             Users.Add(user);
         }
 
+        public override string ToString()
+        {
+            return $"{Title} {ID}";
+        }
+
         public ICollection<User> Users { get; set; }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Epam.Task8._1.Common.Entities;
 using Epam.Users.BLL.Interfaces;
+using System.Collections.Generic;
 using Epam.UsersDAL.Interfaces;
 using System;
 
@@ -23,9 +24,9 @@ namespace Epam.Task8._1.BLL
             _userDAO.DeleteUser(id);
         }
 
-        public void AllUser()
+        public IList<User> AllUser()
         {
-            _userDAO.AllUsers();
+            return _userDAO.AllUsers();
         }
 
         public void EditUser(Guid id, string newName, DateTime newDateTime, int newAge)

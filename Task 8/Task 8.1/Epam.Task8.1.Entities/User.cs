@@ -37,6 +37,16 @@ namespace Epam.Task8._1.Common.Entities
             Awards.Add(award);
         }
 
+        public override string ToString()
+        {
+            string str = $"User:\n{Name} {Age} {DateOfBirth} {ID}\nAwards:\n";
+            foreach (var aw in Awards)
+            {
+                str += "\t" + aw.ToString() + "\n";
+            }
+            return str;
+        }
+
         public ICollection<Award> Awards { get; set; }
 
     }

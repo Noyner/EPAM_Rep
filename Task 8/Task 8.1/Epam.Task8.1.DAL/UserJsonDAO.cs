@@ -1,5 +1,6 @@
 ﻿using Epam.Task8._1.Common.Entities;
 using Epam.UsersDAL.Interfaces;
+using System.Collections.Generic;
 using Newtonsoft.Json;
 using System;
 using System.IO;
@@ -29,15 +30,18 @@ namespace Epam.Task8._1.DAL.UserJsonDAO
 
         }
 
-        public void AllUsers()
+        public IList<User> AllUsers()
         {
-            Console.WriteLine("User list: " + Environment.NewLine);
+            List<User> userList = new List<User>();
+
+
             string[] files = Directory.GetFiles(JSON_FILES_PATH, "*.json");
             foreach (string filename in files)
             {
                 var jsonFull = File.ReadAllText(filename);
-                Console.WriteLine(jsonFull);
+                userList.Add(JsonConvert.DeserializeObject<User>(jsonFull));
             }
+            return userList;
         }
 
         public void EditUser(Guid id, string newName, DateTime newDateTimeOfBirth, int newAge)

@@ -14,7 +14,7 @@ namespace Epam.Users.BLL.Interfaces
 
         void RemoveUser(Guid id);
 
-        void AllUser();
+        IList<User> AllUser();
 
         void EditUser(Guid id, string newName, DateTime newDateTime, int newAge);
 

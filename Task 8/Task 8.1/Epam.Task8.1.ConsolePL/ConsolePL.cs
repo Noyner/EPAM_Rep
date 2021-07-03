@@ -19,10 +19,17 @@ namespace Epam.Task8._1.PL.ConsolePL
             //bll2.GiveAward(Guid.Parse("b3813738-cfb1-41b0-9a04-40eeff0b6cf4"), Guid.Parse("e0ae15c2-a3be-4430-9794-1747b3404e04"));
             //bll2.GiveAward(Guid.Parse("2f1df8d9-b88c-4db5-a8a7-fb95ad24e834"), Guid.Parse("e0ae15c2-a3be-4430-9794-1747b3404e04"));
 
-            bll.AllUser();
+            foreach (var user in bll.AllUser())
+            {
+                Console.WriteLine(user);
+            }
+
+            foreach (var award in bll2.AllAward())
+            {
+                Console.WriteLine("Awards:\n" + award);
+            }
             //bll2.AddAward(new Award("Награда за упорство", Guid.NewGuid()));
             //bll2.AddAward(new Award("Тестовая награда", Guid.NewGuid()));
-            bll2.AllAward();
 
             //bll.EditUser(Guid.Parse("a605f419-db1f-4ee4-83be-c8de3dd1e550"), "Markus", DateTime.Parse("1998.8.6"), 22);
 

@@ -13,6 +13,6 @@ namespace Epam.UsersDAL.Interfaces
 
         void EditUser(Guid id, string newName, DateTime newDateTimeOfBirth, int newAge);
 
-        void AllUsers();
+        IList<User> AllUsers();
     }
 }

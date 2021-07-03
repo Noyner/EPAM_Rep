@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Epam.Task8._1.Common.Entities;
 
 namespace Epam.Users.BLL.Interfaces
@@ -7,7 +8,7 @@ namespace Epam.Users.BLL.Interfaces
     {
         void AddAward(Award award);
 
-        void AllAward();
+        IList<Award> AllAward();
 
         void GiveAward(Guid userId, Guid awardId);
     }

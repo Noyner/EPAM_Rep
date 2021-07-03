@@ -3,6 +3,7 @@ using Epam.UsersDAL.Interfaces;
 using Newtonsoft.Json;
 using System;
 using System.IO;
+using System.Collections.Generic;
 
 namespace Epam.Task8._1.DAL
 {
@@ -15,15 +16,17 @@ namespace Epam.Task8._1.DAL
             string json = JsonConvert.SerializeObject(award);
             File.WriteAllText(GetAwardById(award.ID), json);
         }
-        public void AllAward()
+        public IList<Award> AllAward()
         {
-            Console.WriteLine("Award list: " + Environment.NewLine);
+            List<Award> awardList = new List<Award>();
             string[] files = Directory.GetFiles(JSON_AWARDS_PATH, "*.json");
             foreach (string filename in files)
             {
                 var jsonFull = File.ReadAllText(filename);
-                Console.WriteLine(jsonFull);
+                awardList.Add(JsonConvert.DeserializeObject<Award>(jsonFull));
             }
+
+            return awardList;
         }
 
         public void GiveAward(Guid userId, Guid awardId)

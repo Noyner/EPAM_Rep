@@ -10,7 +10,7 @@ namespace Epam.UsersDAL.Interfaces
     {
         void AddAward(Award award);
 
-        void AllAward();
+        IList<Award> AllAward();
 
         void GiveAward(Guid userId, Guid awardId);
     }

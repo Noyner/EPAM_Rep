@@ -20,9 +20,9 @@ namespace Epam.Task8._1.DAL.UserSqlDAO
 
         }
 
-        public void AllUsers()
+        public IList<User> AllUsers()
         {
-            
+            throw new NotImplementedException("0");
         }
 
         public void EditUser(Guid id, string newName, DateTime newDateTimeOfBirth, int newAge)

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Epam.Task8._1.Common.Entities;
 using Epam.Users.BLL.Interfaces;
 using Epam.UsersDAL.Interfaces;
@@ -19,9 +20,9 @@ namespace Epam.Task8._1.BLL
             _awardDAO.AddAward(award);
         }
 
-        public void AllAward()
+        public IList<Award> AllAward()
         {
-            _awardDAO.AllAward();
+            return _awardDAO.AllAward();
         }
 
         public void GiveAward(Guid userId, Guid awardId)
