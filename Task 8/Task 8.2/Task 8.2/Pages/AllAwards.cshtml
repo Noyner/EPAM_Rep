@@ -1,0 +1,22 @@
+﻿@using Epam.UsersAwards.JsonDAL;
+@using Epam.UsersAwards.Dependences;
+@using Epam.UsersAwards.Entities;
+
+@{
+    Layout = "~/Pages/Layout/_BasicLayout.cshtml";
+}
+@{
+    var bll2 = DependencyResolver.Instance.AwardLogic;
+    <h3>Доступные награды:<br /><br /></h3>
+    <ul>
+        @foreach (var award in bll2.AllAward())
+        {
+            <li>
+                @award.Title
+                @award.ID
+            </li>
+        }
+    </ul>
+
+
+}

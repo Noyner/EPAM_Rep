@@ -14,16 +14,51 @@
 <html>
 <head>
     <title>@pageName</title>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
 </head>
 <body>
     <script src="~/Scripts/jquery-3.6.0.js"></script>
+    <script src="~/Scripts/bootstrap.bundle.min.js"></script>
 
-    <button id="allUsersBtn" type="button" class="btn btn-warning">All Award</button>
+    <button id="allUsersBtn" type="button" class="btn btn-warning">All users</button>
+    <button id="allAwardsBtn" type="button" class="btn btn-warning">All awards</button>
+    <button id="addUserBtn" type="button" class="btn btn-primary">Add user</button>
+    <button id="addAwardBtn" type="button" class="btn btn-primary">Add award</button>
+    <button id="delUserBtn" type="button" class="btn btn-danger">Delete user</button>
+    <button id="delAwardBtn" type="button" class="btn btn-danger">Delete award</button>
+    <button id="giveAwardBtn" type="button" class="btn btn-success">Give award</button>
+    <button id="editUserBtn" type="button" class="btn btn-info">Edit user</button>
+    <button id="editAwardBtn" type="button" class="btn btn-info">Edit award</button>
 
     <script>
         $('#allUsersBtn').click(function () {
-            location.href = '/UsersAndAwards';
+            location.href = '/Pages/AllUser';
         })
+        $('#allAwardsBtn').click(function () {
+            location.href = '/Pages/AllAwards';
+        })
+        $('#addUserBtn').click(function () {
+            location.href = '/Pages/AddUser';
+        })
+        $('#addAwardBtn').click(function () {
+            location.href = '/Pages/AddAward';
+        })
+        $('#delUserBtn').click(function () {
+            location.href = '/Pages/DeleteUser';
+        })
+        $('#delAwardBtn').click(function () {
+            location.href = '/Pages/DeleteAward';
+        })
+        $('#giveAwardBtn').click(function () {
+            location.href = '/Pages/EditAward';
+        })
+        $('#editUserBtn').click(function () {
+            location.href = '/Pages/EditUser';
+        })
+        $('#editAwardBtn').click(function () {
+            location.href = '/Pages/AllUser';
+        })
+
     </script>
 
 </body>

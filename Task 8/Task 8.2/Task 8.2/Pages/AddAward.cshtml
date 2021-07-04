@@ -1,0 +1,34 @@
+﻿@using Epam.UsersAwards.JsonDAL;
+@using Epam.UsersAwards.Dependences;
+@using Epam.UsersAwards.Entities;
+
+@{
+    Layout = "~/Pages/Layout/_BasicLayout.cshtml";
+}
+@{
+
+    var bll2 = DependencyResolver.Instance.AwardLogic;
+
+    string title = null;
+
+    if (IsPost)
+    {
+        title = Request["title"];
+        bll2.AddAward(new Award(title, Guid.NewGuid()));
+        Response.Redirect("~/index.cshtml");
+    }
+}
+}
+<form method="POST">
+    <br />
+    <small id="description" class="form-text text-muted">Введите название новой награды</small>
+    <div class="form-group">
+        <label for="exampleInputEmail1">Award name</label>
+        <input name="title" type="text" class="form-control" placeholder="Enter award title" value="@title">
+    </div>
+    <button type="submit" class="btn btn-primary">Add Award</button>
+</form>
+
+
+
+

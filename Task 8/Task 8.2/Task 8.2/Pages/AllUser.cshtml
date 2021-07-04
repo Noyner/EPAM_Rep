@@ -1,0 +1,25 @@
+﻿@using Epam.UsersAwards.JsonDAL;
+@using Epam.UsersAwards.Dependences;
+@using Epam.UsersAwards.Entities;
+@{
+    Layout = "~/Pages/Layout/_BasicLayout.cshtml";
+}
+@{
+    var bll = DependencyResolver.Instance.UserLogic;
+
+    <h3>Список пользователей:<br /><br /></h3>
+    <ul>
+        @foreach (var user in bll.AllUser())
+        {
+            string awards = string.Join(" | ", user.Awards);
+            <li>
+                @user.Name
+                @user.Age
+                @user.DateOfBirth
+                @awards
+            </li>
+        }
+    </ul>
+}
+
+

@@ -1,0 +1,43 @@
+﻿@using Epam.UsersAwards.JsonDAL;
+@using Epam.UsersAwards.Dependences;
+@using Epam.UsersAwards.Entities;
+
+@{
+    Layout = "~/Pages/Layout/_BasicLayout.cshtml";
+
+    var bll = DependencyResolver.Instance.UserLogic;
+
+    string name = null;
+    DateTime dateOfBirth = DateTime.Today;
+    int age = 0;
+
+    if (IsPost)
+    {
+        name = Request["name"];
+        int.TryParse(Request["age"], out age);
+        dateOfBirth = Convert.ToDateTime(Convert.ToString(Request["dateOfBirth1"]));
+        bll.AddUser(new User(name, dateOfBirth, age, Guid.NewGuid()));
+        Response.Redirect("~/index.cshtml");
+    }
+
+}
+
+<form method="POST">
+    <br />
+    <small id="description" class="form-text text-muted">Введите данные нового пользователя</small>
+    <div class="form-group">
+        <label for="exampleInputEmail1">User name</label>
+        <input name="name" type="text" class="form-control" placeholder="Enter user name" value="@name">
+    </div>
+    <div class="form-group">
+        <label for="userDate">Date of birth</label>
+        <input name="dateOfBirth1" type="date" class="form-control" placeholder="Date of birth" value="@dateOfBirth">
+    </div>
+    <div class="form-group">
+        <label for="Age">Age</label>
+        <input name="age" type="text" class="form-control" placeholder="Age" value="@age">
+    </div>
+    <button type="submit" class="btn btn-primary">Add User</button>
+</form>
+
+
