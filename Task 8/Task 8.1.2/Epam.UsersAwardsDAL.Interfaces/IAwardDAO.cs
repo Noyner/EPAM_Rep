@@ -8,8 +8,12 @@ namespace Epam.UsersAwardsDAL.Interfaces
     {
         void AddAward(Award award);
 
+        void DeleteAward(Guid id);
+
         IList<Award> AllAward();
 
         void GiveAward(Guid userId, Guid awardId);
+
+        void EditAward(Guid id, string newTitle);
     }
 }

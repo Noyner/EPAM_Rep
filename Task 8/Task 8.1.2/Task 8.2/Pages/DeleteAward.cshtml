@@ -1,0 +1,28 @@
+﻿@using Epam.UsersAwards.JsonDAL;
+@using Epam.UsersAwards.Dependences;
+@using Epam.UsersAwards.Entities;
+
+@{
+    Layout = "~/Pages/Layout/_BasicLayout.cshtml";
+
+    var bll2 = DependencyResolver.Instance.AwardLogic;
+
+    Guid awardId = Guid.Parse("4b1a7333-0b21-40d3-8e56-450128ee2002");
+
+    if (IsPost)
+    {
+        awardId = Guid.Parse(Request["awardId"]);
+        bll2.RemoveAward(awardId);
+        Response.Redirect("~/index.cshtml");
+    }
+}
+
+<form method="POST">
+    <br />
+    <small id="description" class="form-text text-muted">Введите ID награды для её удаления</small>
+    <div class="form-group">
+        <label for="exampleInputEmail1">Award ID</label>
+        <input name="awardId" type="text" class="form-control" placeholder="Enter user ID" value="@awardId">
+    </div>
+    <button type="submit" class="btn btn-danger">Delete award</button>
+</form>

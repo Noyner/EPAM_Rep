@@ -10,7 +10,7 @@ namespace Epam.UsersAwards.JsonDAL
 {
     public class UserJsonDAO : IUserDAO
     {
-        public const string JSON_FILES_PATH = @"C:\Users\Sgt.Pepper\Desktop\Study\EPAM\EPAM_Rep\Task 8\Task 8.2\Users\";
+        public const string JSON_FILES_PATH = @"C:\Users\Sgt.Pepper\Desktop\Study\EPAM\EPAM_Rep\Task 8\Task 8.1.2\Users\";
         public void AddUser(User user)
         {
             string json = JsonConvert.SerializeObject(user);

@@ -18,5 +18,11 @@ namespace Epam.UsersAwards.SqlDAL
         {
 
         }
+
+        public void DeleteAward(Guid id)
+        {
+            // TODO: Delete award from SQL Database
+
+        }
     }
 }

@@ -139,6 +139,9 @@
     <Content Include="Content\bootstrap-grid.rtl.css.map" />
     <Content Include="Content\bootstrap-grid.min.css.map" />
     <Content Include="Content\bootstrap-grid.css.map" />
+    <Content Include="Pages\EditUser.cshtml" />
+    <Content Include="Pages\EditAward.cshtml" />
+    <Content Include="Pages\DeleteAward.cshtml" />
     <None Include="Scripts\jquery-3.6.0.intellisense.js" />
     <Content Include="Scripts\jquery-3.6.0.min.js" />
     <Content Include="Scripts\jquery-3.6.0.slim.js" />

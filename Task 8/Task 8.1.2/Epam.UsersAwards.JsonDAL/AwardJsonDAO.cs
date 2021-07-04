@@ -9,8 +9,8 @@ namespace Epam.UsersAwards.JsonDAL
 {
     public class AwardJsonDAO : IAwardDAO
     {
-        public const string JSON_AWARDS_PATH = @"C:\Users\Sgt.Pepper\Desktop\Study\EPAM\EPAM_Rep\Task 8\Task 8.2\Awards\";
-        public const string JSON_USERS_PATH = @"C:\Users\Sgt.Pepper\Desktop\Study\EPAM\EPAM_Rep\Task 8\Task 8.2\Users\";
+        public const string JSON_AWARDS_PATH = @"C:\Users\Sgt.Pepper\Desktop\Study\EPAM\EPAM_Rep\Task 8\Task 8.1.2\Awards\";
+        public const string JSON_USERS_PATH = @"C:\Users\Sgt.Pepper\Desktop\Study\EPAM\EPAM_Rep\Task 8\Task 8.1.2\Users\";
         public void AddAward(Award award)
         {
             string json = JsonConvert.SerializeObject(award);
@@ -27,6 +27,32 @@ namespace Epam.UsersAwards.JsonDAL
             }
 
             return awardList;
+        }
+
+        public void DeleteAward(Guid id)
+        {
+            if (File.Exists(GetAwardById(id)))
+            {
+                File.Delete(GetAwardById(id));
+            }
+            else
+            {
+                throw new FileNotFoundException(
+                    string.Format("Award with ID {} at path {1} isn`t created", id, JSON_AWARDS_PATH));
+            }
+        }
+
+        public void EditAward(Guid id, string newTitle)
+        {
+            if (!File.Exists(GetAwardById(id)))
+            {
+                throw new FileNotFoundException(
+                    string.Format("File with name {0} at path {1} isn`t created!",
+                    id, JSON_AWARDS_PATH));
+            }
+            Award award = JsonConvert.DeserializeObject<Award>(File.ReadAllText(GetAwardById(id)));
+            award.EditAward(newTitle);
+            File.WriteAllText(GetAwardById(id), JsonConvert.SerializeObject(award));
         }
 
         public void GiveAward(Guid userId, Guid awardId)
