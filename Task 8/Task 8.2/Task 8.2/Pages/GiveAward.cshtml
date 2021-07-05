@@ -1,0 +1,34 @@
+﻿@using Epam.UsersAwards.JsonDAL;
+@using Epam.UsersAwards.Dependences;
+@using Epam.UsersAwards.Entities;
+
+@{
+    Layout = "~/Pages/Layout/_BasicLayout.cshtml";
+
+    var bll2 = DependencyResolver.Instance.AwardLogic;
+
+    Guid userId = Guid.Parse("4b1a7333-0b21-40d3-8e56-450128ee2002");
+    Guid awardId = Guid.Parse("4b1a7333-0b21-40d3-8e56-450128ee2002");
+
+    if (IsPost)
+    {
+        userId = Guid.Parse(Request["userId"]);
+        awardId = Guid.Parse(Request["awardId"]);
+        bll2.GiveAward(userId, awardId);
+        Response.Redirect("~/index.cshtml");
+    }
+}
+
+<form method="POST">
+    <br />
+    <small id="description" class="form-text text-muted">Выберите пользователя и награду которую хотите вручить</small>
+    <div class="form-group">
+        <label for="exampleInputEmail1">User ID</label>
+        <input name="userId" type="text" class="form-control" placeholder="Enter user ID" value="@userId">
+    </div>
+    <div class="form-group">
+        <label for="userDate">Award ID</label>
+        <input name="awardId" type="text" class="form-control" placeholder="Enter award ID" value="@awardId">
+    </div>
+    <button type="submit" class="btn btn-success">Give award</button>
+</form>

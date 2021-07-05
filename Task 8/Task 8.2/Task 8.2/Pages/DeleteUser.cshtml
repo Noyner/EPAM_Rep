@@ -1,0 +1,28 @@
+﻿@using Epam.UsersAwards.JsonDAL;
+@using Epam.UsersAwards.Dependences;
+@using Epam.UsersAwards.Entities;
+
+@{
+    Layout = "~/Pages/Layout/_BasicLayout.cshtml";
+
+    var bll = DependencyResolver.Instance.UserLogic;
+
+    Guid userId = Guid.Parse("4b1a7333-0b21-40d3-8e56-450128ee2002");
+
+    if (IsPost)
+    {
+        userId = Guid.Parse(Request["userId"]);
+        bll.RemoveUser(userId);
+        Response.Redirect("~/index.cshtml");
+    }
+}
+
+<form method="POST">
+    <br />
+    <small id="description" class="form-text text-muted">Введите ID пользователя для его удаления</small>
+    <div class="form-group">
+        <label for="exampleInputEmail1">User ID</label>
+        <input name="userId" type="text" class="form-control" placeholder="Enter user ID" value="@userId">
+    </div>
+    <button type="submit" class="btn btn-danger">Delete user</button>
+</form>

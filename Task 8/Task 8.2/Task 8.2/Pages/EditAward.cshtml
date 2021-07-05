@@ -1,0 +1,37 @@
+﻿@using Epam.UsersAwards.JsonDAL;
+@using Epam.UsersAwards.Dependences;
+@using Epam.UsersAwards.Entities;
+
+@{
+    Layout = "~/Pages/Layout/_BasicLayout.cshtml";
+
+    var bll2 = DependencyResolver.Instance.AwardLogic;
+
+    Guid awardId = Guid.Parse("4b1a7333-0b21-40d3-8e56-450128ee2002");
+    string newTitle = null;
+
+    if (IsPost)
+    {
+        newTitle = Request["newTitle"];
+        awardId = Guid.Parse(Request["awardId"]);
+        bll2.EditAward(awardId, newTitle);
+        Response.Redirect("~/index.cshtml");
+    }
+
+}
+
+<form method="POST">
+    <br />
+    <small id="description" class="form-text text-muted">Измените название награды</small>
+    <div class="form-group">
+        <label for="exampleInputEmail1">Award ID</label>
+        <input name="awardId" type="text" class="form-control" placeholder="Enter award ID" value="@awardId">
+    </div>
+    <div class="form-group">
+        <label for="exampleInputEmail1">New title</label>
+        <input name="newTitle" type="text" class="form-control" placeholder="Enter new title" value="@newTitle">
+    </div>
+    <button type="submit" class="btn btn-primary">Edit award data</button>
+</form>
+
+
