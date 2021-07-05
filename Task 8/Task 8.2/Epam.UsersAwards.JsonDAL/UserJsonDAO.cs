@@ -34,7 +34,6 @@ namespace Epam.UsersAwards.JsonDAL
         {
             List<User> userList = new List<User>();
 
-            
             string[] files = Directory.GetFiles(JSON_FILES_PATH, "*.json");
             foreach (string filename in files)
             {

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Newtonsoft.Json;
 using System;
 using System.IO;
+using System.Linq;
 
 namespace Epam.UsersAwards.JsonDAL
 {
@@ -33,12 +34,31 @@ namespace Epam.UsersAwards.JsonDAL
         {
             if (File.Exists(GetAwardById(id)))
             {
+                string[] files = Directory.GetFiles(JSON_USERS_PATH, "*.json");
+                Award award = JsonConvert.DeserializeObject<Award>(File.ReadAllText(GetAwardById(id)));
+                foreach (string filename in files)
+                {
+                    User user = JsonConvert.DeserializeObject<User>(File.ReadAllText(filename));
+
+                    List<Award> copyList = user.Awards.ToList<Award>();
+                    user.Awards = new List<Award>();
+
+                    foreach (Award a in copyList)
+                    {
+                        if (a.ID != award.ID)
+                        {
+                            user.Awards.Add(a);
+                        }
+                    }
+
+                    File.WriteAllText(filename, JsonConvert.SerializeObject(user));
+                }
                 File.Delete(GetAwardById(id));
             }
             else
             {
                 throw new FileNotFoundException(
-                    string.Format("Award with ID {} at path {1} isn`t created", id, JSON_AWARDS_PATH));
+                    string.Format("Award with ID {0} at path {1} isn`t created", id, JSON_AWARDS_PATH));
             }
         }
 
