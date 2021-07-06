@@ -15,7 +15,7 @@ namespace Epam.UsersAwards.Dependences
         public static DependencyResolver Instance => new DependencyResolver();
         #endregion
 
-        public IUserDAO UserDAO => new UserJsonDAO();
+        public IUserDAO UserDAO => new UserSqlDAO();
 
         public IUserLogic UserLogic => new UserLogic(UserDAO);
 

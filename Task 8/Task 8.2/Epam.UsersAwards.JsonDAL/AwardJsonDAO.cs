@@ -17,7 +17,7 @@ namespace Epam.UsersAwards.JsonDAL
             string json = JsonConvert.SerializeObject(award);
             File.WriteAllText(GetAwardById(award.ID), json);
         }
-        public IList <Award> AllAward()
+        public IEnumerable<Award> AllAwards()
         {
             List<Award> awardList = new List<Award>();
             string[] files = Directory.GetFiles(JSON_AWARDS_PATH, "*.json");

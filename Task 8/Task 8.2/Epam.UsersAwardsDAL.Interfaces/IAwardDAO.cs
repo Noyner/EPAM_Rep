@@ -12,7 +12,7 @@ namespace Epam.UsersAwardsDAL.Interfaces
 
         void EditAward(Guid id, string newTitle);
 
-        IList<Award> AllAward();
+        IEnumerable<Award> AllAwards();
 
         void GiveAward(Guid userId, Guid awardId);
 

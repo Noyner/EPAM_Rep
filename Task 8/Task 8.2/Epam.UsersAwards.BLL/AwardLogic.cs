@@ -25,9 +25,9 @@ namespace Epam.UsersAwards.BLL
             _awardDAO.AddAward(award);
         }
 
-        public IList<Award> AllAward()
+        public IEnumerable<Award> AllAwards()
         {
-            return _awardDAO.AllAward();
+            return _awardDAO.AllAwards();
         }
 
         public void GiveAward(Guid userId, Guid awardId)

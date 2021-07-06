@@ -9,7 +9,7 @@
 
     <h3>Список пользователей:<br /><br /></h3>
     <ul>
-        @foreach (var user in bll.AllUser())
+        @foreach (var user in bll.AllUsers())
         {
             string awards = string.Join(" | ", user.Awards);
             <li>

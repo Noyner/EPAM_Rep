@@ -14,9 +14,10 @@ namespace Epam.UsersAwards.BLL
         {
             _userDAO = userDao;
         }
-        public void AddUser(User user)
+        public User AddUser(User user)
         {
             _userDAO.AddUser(user);
+            return user;
         }
 
         public void RemoveUser(Guid id)
@@ -24,7 +25,7 @@ namespace Epam.UsersAwards.BLL
             _userDAO.DeleteUser(id);
         }
 
-        public IList<User> AllUser()
+        public IEnumerable<User> AllUsers()
         {
             return _userDAO.AllUsers();
         }

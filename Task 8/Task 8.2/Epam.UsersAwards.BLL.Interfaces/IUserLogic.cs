@@ -6,11 +6,11 @@ namespace Epam.UsersAwards.BLL.Interfaces
 {
     public interface IUserLogic
     {
-        void AddUser(User user);
+        User AddUser(User user);
 
         void RemoveUser(Guid id);
 
-        IList <User> AllUser();
+        IEnumerable <User> AllUsers();
 
         void EditUser(Guid id, string newName, DateTime newDateTime, int newAge);
     }

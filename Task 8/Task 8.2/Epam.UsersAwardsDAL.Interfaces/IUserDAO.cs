@@ -9,12 +9,12 @@ namespace Epam.UsersAwardsDAL.Interfaces
 {
     public interface IUserDAO
     {
-        void AddUser(User user);
+        User AddUser(User user);
 
         void DeleteUser(Guid id);
 
         void EditUser(Guid id, string newName, DateTime newDateTimeOfBirth, int newAge);
 
-        IList<User> AllUsers();
+        IEnumerable<User> AllUsers(bool orderedById = true);
     }
 }

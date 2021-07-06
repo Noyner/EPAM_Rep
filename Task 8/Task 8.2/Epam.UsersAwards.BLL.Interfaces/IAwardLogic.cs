@@ -10,7 +10,7 @@ namespace Epam.UsersAwards.BLL.Interfaces
 
         void RemoveAward(Guid id);
 
-        IList<Award> AllAward();
+        IEnumerable<Award> AllAwards();
 
         void GiveAward(Guid userId, Guid awardId);
 

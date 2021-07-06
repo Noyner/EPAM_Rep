@@ -11,10 +11,11 @@ namespace Epam.UsersAwards.JsonDAL
     public class UserJsonDAO : IUserDAO
     {
         public const string JSON_FILES_PATH = @"C:\Users\Sgt.Pepper\Desktop\Study\EPAM\EPAM_Rep\Task 8\Task 8.2\Users\";
-        public void AddUser(User user)
+        public User AddUser(User user)
         {
             string json = JsonConvert.SerializeObject(user);
             File.WriteAllText(GetUserById(user.ID), json);
+            return user;
         }
 
         public void DeleteUser(Guid id)
@@ -30,7 +31,7 @@ namespace Epam.UsersAwards.JsonDAL
             }
         }
 
-        public IList<User> AllUsers()
+        public IEnumerable<User> AllUsers(bool orderedById = true)
         {
             List<User> userList = new List<User>();
 
