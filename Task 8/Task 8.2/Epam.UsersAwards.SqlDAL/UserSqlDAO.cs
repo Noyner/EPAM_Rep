@@ -5,20 +5,19 @@ using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Configuration;
 using System.Collections.Specialized;
-using System.Data;
+using System.Linq;
 
 namespace Epam.UsersAwards.SqlDAL
 {
     public class UserSqlDAO : IUserDAO
     {
-        public static string _connectionString = ConfigurationManager.ConnectionStrings["default"].ConnectionString;
-        public static SqlConnection _connection = new SqlConnection(_connectionString);
+        public string _connectionString = ConfigurationManager.ConnectionStrings["default"].ConnectionString;
         //public static SqlConnection _connection = new SqlConnection(@"Data Source=HOME-PC\SQLEXPRESS;Initial Catalog=UsersAndAwards;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
         
         public const string JSON_FILES_PATH = @"C:\Users\Sgt.Pepper\Desktop\Study\EPAM\EPAM_Rep\Task 8\ask 8.2\Users\";
         public User AddUser(User user)
         {
-            using (_connection)
+            using (var _connection = new SqlConnection(_connectionString))
             {
                 var query = "INSERT INTO dbo.Users(Id, Name, DateOfBirth, Age) " +
                     "VALUES(@Id,@Name, @DateOfBirth, @Age)";
@@ -29,9 +28,11 @@ namespace Epam.UsersAwards.SqlDAL
                 command.Parameters.AddWithValue("@DateOfBirth", user.DateOfBirth);
                 command.Parameters.AddWithValue("@Age", user.Age);
 
-                _connection.Open();
 
-                    return new User(
+                _connection.Open();
+                command.ExecuteNonQuery();
+
+                return new User(
                         id: user.ID,
                         name: user.Name,
                         dateOfBirth: user.DateOfBirth,
@@ -41,7 +42,7 @@ namespace Epam.UsersAwards.SqlDAL
 
         public User GetUser(Guid id)
         {
-            using (_connection)
+            using (var _connection = new SqlConnection(_connectionString))
             {
                 var stProc = "Users_GetUserById";
 
@@ -74,7 +75,7 @@ namespace Epam.UsersAwards.SqlDAL
         {
             //var connect = new SqlConnection(@"Data Source=HOME-PC\SQLEXPRESS;Initial Catalog=UsersAndAwards;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
             string sql = $"Delete From Users Where Id='{id}'";
-            using (_connection)
+            using (var _connection = new SqlConnection(_connectionString))
             {
                 var command = new SqlCommand(sql, _connection);
 
@@ -86,16 +87,39 @@ namespace Epam.UsersAwards.SqlDAL
 
         public IEnumerable<User> AllUsers(bool orderedById = true)
         {
-            using (_connection)
+            using (var _connection = new SqlConnection(_connectionString))
             {
                 var query = "SELECT Id, Name, DateOfBirth, Age FROM Users"
                    + (orderedById ? " ORDER BY Id" : "");
+                //var awardsToUsers = "SELECT Id FROM Users WHERE " 
+                //var awardsToUsers = "SELECT * FROM AwardsToUsers";
+                //var allAwards = "SELECT * FROM Awards";
+
 
                 var command = new SqlCommand(query, _connection);
+                //var command2 = new SqlCommand(awardsToUsers, _connection);
+                //var command3 = new SqlCommand(allAwards, _connection);
+                
 
                 _connection.Open();
 
                 var reader = command.ExecuteReader();
+                /*
+                var reader2 = command2.ExecuteReader();
+                _connection.Close();
+
+                _connection.Open();
+                var reader3 = command3.ExecuteReader();
+
+                List<Award> awardList = new List<Award>();
+                List<User> userList = new List<User>();
+                while (reader3.Read())
+                {
+                    var award = new Award(
+                        id: (Guid)reader["Id"],
+                        title: reader["Title"] as string);
+                    awardList.Add(award);
+                }*/
 
                 while (reader.Read())
                 {
@@ -103,14 +127,45 @@ namespace Epam.UsersAwards.SqlDAL
                         id: (Guid)reader["Id"],
                         name: reader["Name"] as string,
                         dateOfBirth: (DateTime)reader["DateOfBirth"],
-                        age: (int)reader["Age"]);      
+                        age: (int)reader["Age"]);
+                    /*
+                    while (reader2.Read())
+                    {
+                        var award = awardList.Where(x => x.ID.ToString() == reader2["AwardId"]).FirstOrDefault();
+                        if (reader2["UserId"]==user.ID.ToString())
+                        {
+                            user.Awards.Add(award);
+                        }
+                    }
+                    userList.Add(user);
+                }
+                return userList;*/
                 }
             }
         }
 
         public void EditUser(Guid id, string newName, DateTime newDateTimeOfBirth, int newAge)
         {
-            // TODO: Edit user from SQL Database
+            using (var _connection = new SqlConnection(_connectionString))
+            {
+                var query = $"UPDATE dbo.Users SET Name='{newName}', DateOfBirth='{newDateTimeOfBirth}', Age='{newAge}'" +
+                    $"WHERE Id = '{id}'";
+                var command = new SqlCommand(query, _connection);
+
+                try
+                {
+                    _connection.Open();
+                    command.ExecuteNonQuery();
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Error: " + ex);
+                }
+                finally
+                {
+                    _connection.Close();
+                }
+            }
         }
 
         private string GetUserById(Guid id) => JSON_FILES_PATH + id + ".json";

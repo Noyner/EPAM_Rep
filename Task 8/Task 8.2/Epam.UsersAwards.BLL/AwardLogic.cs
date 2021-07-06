@@ -20,9 +20,10 @@ namespace Epam.UsersAwards.BLL
             _awardDAO.DeleteAward(id);
         }
 
-        public void AddAward(Award award)
+        public Award AddAward(Award award)
         {
             _awardDAO.AddAward(award);
+            return award;
         }
 
         public IEnumerable<Award> AllAwards()

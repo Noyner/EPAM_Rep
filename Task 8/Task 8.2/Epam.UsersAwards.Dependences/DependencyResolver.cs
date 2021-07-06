@@ -19,7 +19,7 @@ namespace Epam.UsersAwards.Dependences
 
         public IUserLogic UserLogic => new UserLogic(UserDAO);
 
-        public IAwardDAO AwardDAO => new AwardJsonDAO();
+        public IAwardDAO AwardDAO => new AwardSqlDAO();
 
         public IAwardLogic AwardLogic => new AwardLogic(AwardDAO);
     }

@@ -9,7 +9,7 @@
     var bll2 = DependencyResolver.Instance.AwardLogic;
     <h3>Доступные награды:<br /><br /></h3>
     <ul>
-        @foreach (var award in bll2.AllAward())
+        @foreach (var award in bll2.AllAwards())
         {
             <li>
                 @award.Title

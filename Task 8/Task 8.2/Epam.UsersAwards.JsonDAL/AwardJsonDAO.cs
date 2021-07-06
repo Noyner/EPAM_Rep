@@ -12,10 +12,11 @@ namespace Epam.UsersAwards.JsonDAL
     {
         public const string JSON_AWARDS_PATH = @"C:\Users\Sgt.Pepper\Desktop\Study\EPAM\EPAM_Rep\Task 8\Task 8.2\Awards\";
         public const string JSON_USERS_PATH = @"C:\Users\Sgt.Pepper\Desktop\Study\EPAM\EPAM_Rep\Task 8\Task 8.2\Users\";
-        public void AddAward(Award award)
+        public Award AddAward(Award award)
         {
             string json = JsonConvert.SerializeObject(award);
             File.WriteAllText(GetAwardById(award.ID), json);
+            return award;
         }
         public IEnumerable<Award> AllAwards()
         {

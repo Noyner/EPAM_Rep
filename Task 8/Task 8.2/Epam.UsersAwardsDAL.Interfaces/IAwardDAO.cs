@@ -6,7 +6,7 @@ namespace Epam.UsersAwardsDAL.Interfaces
 {
     public interface IAwardDAO
     {
-        void AddAward(Award award);
+        Award AddAward(Award award);
 
         void DeleteAward(Guid id);
 

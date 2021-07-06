@@ -6,7 +6,7 @@ namespace Epam.UsersAwards.BLL.Interfaces
 {
     public interface IAwardLogic
     {
-        void AddAward(Award award);
+        Award AddAward(Award award);
 
         void RemoveAward(Guid id);
 
