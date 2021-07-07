@@ -16,6 +16,12 @@ namespace Epam.UsersAwards.Entities
             Age = age;
             Awards = new List<Award>();
         }
+        
+        public User(string name, string id)
+        {
+            ID = Guid.Parse(id);
+            Name = name;
+        }
 
         public Guid ID { get; private set; }
 

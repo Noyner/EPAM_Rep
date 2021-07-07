@@ -87,60 +87,42 @@ namespace Epam.UsersAwards.SqlDAL
 
         public IEnumerable<User> AllUsers(bool orderedById = true)
         {
+            var query = "SELECT Id, Name, DateOfBirth, Age FROM Users";
+            var awardsFromUsers = "SELECT aw.AwardId, a.Title FROM dbo.Users AS u INNER JOIN dbo.AwardsToUsers as aw ON UserId = u.Id INNER JOIN dbo.Awards as a ON a.Id = AwardId";
+            
             using (var _connection = new SqlConnection(_connectionString))
             {
-                var query = "SELECT Id, Name, DateOfBirth, Age FROM Users"
-                   + (orderedById ? " ORDER BY Id" : "");
-                //var awardsToUsers = "SELECT Id FROM Users WHERE " 
-                //var awardsToUsers = "SELECT * FROM AwardsToUsers";
-                //var allAwards = "SELECT * FROM Awards";
-
-
-                var command = new SqlCommand(query, _connection);
-                //var command2 = new SqlCommand(awardsToUsers, _connection);
-                //var command3 = new SqlCommand(allAwards, _connection);
-                
-
                 _connection.Open();
 
-                var reader = command.ExecuteReader();
-                /*
-                var reader2 = command2.ExecuteReader();
+                using (SqlCommand command1 = new SqlCommand(query, _connection))
+                {
+
+                    var reader = command1.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        yield return new User(
+                            id: (Guid)reader["Id"],
+                            name: reader["Name"] as string,
+                            dateOfBirth: (DateTime)reader["DateOfBirth"],
+                            age: (int)reader["Age"]);
+                    }
+                }
                 _connection.Close();
-
                 _connection.Open();
-                var reader3 = command3.ExecuteReader();
 
-                List<Award> awardList = new List<Award>();
-                List<User> userList = new List<User>();
-                while (reader3.Read())
+                using (SqlCommand command2 = new SqlCommand(awardsFromUsers, _connection))
                 {
-                    var award = new Award(
-                        id: (Guid)reader["Id"],
-                        title: reader["Title"] as string);
-                    awardList.Add(award);
-                }*/
+                    var reader2 = command2.ExecuteReader();
 
-                while (reader.Read())
-                {
-                    yield return new User(
-                        id: (Guid)reader["Id"],
-                        name: reader["Name"] as string,
-                        dateOfBirth: (DateTime)reader["DateOfBirth"],
-                        age: (int)reader["Age"]);
-                    /*
                     while (reader2.Read())
                     {
-                        var award = awardList.Where(x => x.ID.ToString() == reader2["AwardId"]).FirstOrDefault();
-                        if (reader2["UserId"]==user.ID.ToString())
-                        {
-                            user.Awards.Add(award);
-                        }
+                        yield return new User(
+                            id: reader2["AwardId"] as string,
+                            name: reader2["Title"] as string);                    
                     }
-                    userList.Add(user);
                 }
-                return userList;*/
-                }
+ 
             }
         }
 
