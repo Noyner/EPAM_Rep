@@ -105,10 +105,37 @@ namespace Epam.UsersAwards.SqlDAL
                             id: (Guid)reader["Id"],
                             name: reader["Name"] as string,
                             dateOfBirth: (DateTime)reader["DateOfBirth"],
-                            age: (int)reader["Age"]);
+                            age: (int)reader["Age"]);                
                     }
                 }
-                _connection.Close();
+                /*_connection.Close();
+                _connection.Open();
+
+                using (SqlCommand command2 = new SqlCommand(awardsFromUsers, _connection))
+                {
+                    var reader2 = command2.ExecuteReader();
+                    
+                    while (reader2.Read())
+                    {
+                        List <string> awardList = new List<string>();
+                        awardList.Add(awardsFromUsers);
+
+                        yield return new User(
+                            id: (Guid)reader2["AwardId"],
+                            name: reader2["Title"] as string,
+                            dateOfBirth: (DateTime)reader2["DateOfBirth"],
+                            age: (int)reader2["Age"]);
+                    }
+                }*/
+ 
+            }
+        }
+
+       /* public IEnumerable<User> awardsFromUsers()
+        {
+            var awardsFromUsers = "SELECT u.Id, u.Name, aw.AwardId, a.Title FROM dbo.Users AS u INNER JOIN dbo.AwardsToUsers as aw ON UserId = u.Id INNER JOIN dbo.Awards as a ON a.Id = AwardId";
+            using (var _connection = new SqlConnection(_connectionString))
+            {
                 _connection.Open();
 
                 using (SqlCommand command2 = new SqlCommand(awardsFromUsers, _connection))
@@ -117,14 +144,21 @@ namespace Epam.UsersAwards.SqlDAL
 
                     while (reader2.Read())
                     {
+                        List<string> awardList = new List<string>();
+                        awardList.Add(awardsFromUsers);
+
                         yield return new User(
-                            id: reader2["AwardId"] as string,
-                            name: reader2["Title"] as string);                    
+                            award: reader2["awardList"]);
+                            //id: (int)reader2["Id"],
+                            //name: reader2["Name"],
+                            //awardId: reader2["AwardId"],
+                            //Title: reader2["Title"] as string);
                     }
                 }
- 
             }
-        }
+            
+
+        }*/
 
         public void EditUser(Guid id, string newName, DateTime newDateTimeOfBirth, int newAge)
         {
