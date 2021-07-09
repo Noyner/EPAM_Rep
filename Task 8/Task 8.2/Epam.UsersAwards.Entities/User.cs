@@ -25,6 +25,8 @@ namespace Epam.UsersAwards.Entities
 
         public int Age { get; set; }
 
+        public ICollection<Award> Awards { get; set; }
+
         public void Edit(string newName, DateTime newDateOfBirth, int newAge)
         {
             if (newName == null)
@@ -49,6 +51,6 @@ namespace Epam.UsersAwards.Entities
             }
             return str;
         }
-        public ICollection<Award> Awards { get; set; }
+        
     }
 }

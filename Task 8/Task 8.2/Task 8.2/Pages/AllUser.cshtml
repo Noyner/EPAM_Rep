@@ -11,14 +11,33 @@
     <ul>
         @foreach (var user in bll.AllUsers())
         {
-            string awards = string.Join(" | ", user.Awards);
-            <li>
+            //string awards = string.Join(" | ", user.Awards);
+        <li>
+            <b>
+                User:
                 @user.Name
                 @user.Age
                 @user.DateOfBirth
                 @user.ID
-                @awards
-            </li>
+            </b>
+            @if (user.Awards.Count > 0)
+            {
+                <ul>
+                    Awards:
+                    @foreach (var award in user.Awards)
+                    {
+                        <li>
+                            @award.ToString();
+                        </li>
+                    }
+                </ul>
+            }
+            else
+            {
+                <span>No one award</span>
+            }
+
+        </li>
         }
     </ul>
 }
