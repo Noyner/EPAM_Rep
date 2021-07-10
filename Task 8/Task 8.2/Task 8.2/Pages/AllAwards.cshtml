@@ -6,7 +6,7 @@
     Layout = "~/Pages/Layout/_BasicLayout.cshtml";
 }
 @{
-    var bll2 = DependencyResolver.Instance.AwardLogic;
+    var bll2 = DependencyResolver.GetInstance().AwardLogic;
     <h3>Доступные награды:<br /><br /></h3>
     <ul>
         @foreach (var award in bll2.AllAwards())

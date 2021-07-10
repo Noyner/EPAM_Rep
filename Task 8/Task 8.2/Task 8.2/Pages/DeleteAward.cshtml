@@ -5,7 +5,7 @@
 @{
     Layout = "~/Pages/Layout/_BasicLayout.cshtml";
 
-    var bll2 = DependencyResolver.Instance.AwardLogic;
+    var bll2 = DependencyResolver.GetInstance().AwardLogic;
 
     Guid awardId = Guid.Parse("4b1a7333-0b21-40d3-8e56-450128ee2002");
 

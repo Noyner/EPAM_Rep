@@ -12,7 +12,15 @@ namespace Epam.UsersAwards.Dependences
         #region SINGLETONE
         private static DependencyResolver _instance;
 
-        public static DependencyResolver Instance => new DependencyResolver();
+        public static DependencyResolver GetInstance()
+        {
+            if(_instance == null)
+            {
+                _instance = new DependencyResolver();
+            }
+
+            return _instance;
+        }
         #endregion
 
         public IUserDAO UserDAO => new UserSqlDAO();

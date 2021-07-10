@@ -6,7 +6,7 @@
 @{
     Layout = "~/Pages/Layout/_BasicLayout.cshtml";
 
-    var bll = DependencyResolver.Instance.UserLogic;
+    var bll = DependencyResolver.GetInstance().UserLogic;
 
     string name = null;
     DateTime dateOfBirth = DateTime.Today;

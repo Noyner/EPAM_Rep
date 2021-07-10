@@ -5,7 +5,7 @@
 @{
     Layout = "~/Pages/Layout/_BasicLayout.cshtml";
 
-    var bll = DependencyResolver.Instance.UserLogic;
+    var bll = DependencyResolver.GetInstance().UserLogic;
 
     Guid userId = Guid.Parse("4b1a7333-0b21-40d3-8e56-450128ee2002");
 
